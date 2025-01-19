@@ -1,6 +1,5 @@
 import icon from "../../assets/logo.jpg"
 import image from "../../assets/bandage-with-heart-it.jpg"
-import google from "../../assets/Google__G__logo.svg.png"
 import { Link } from "react-router-dom";
 const Login = () => {
   return (
@@ -29,30 +28,11 @@ const Login = () => {
         Welcome back!
       </p>
 
-      {/* Google Sign-In Button */}
-      <Link
-        to='/'        
-        className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 "
-      >
-        <div className="px-4 py-2 flex items-center border border-gray-400 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
-          <div>
-          <img className="w-6" src={google} alt="" />
-          </div>
-        <span className="px-4 py-3 font-bold text-center">
-          Sign in with Google
-        </span>
-        </div>
-      </Link>
-
+     
       {/* Divider */}
       <div className="flex items-center justify-between mt-4">
         <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
-        <a
-          href="#"
-          className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline"
-        >
-          or login with email
-        </a>
+        
         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
       </div>
 
@@ -67,6 +47,7 @@ const Login = () => {
         <input
           id="LoggingEmailAddress"
           type="email"
+          placeholder="Enter email"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
         />
       </div>
@@ -80,15 +61,11 @@ const Login = () => {
           >
             Password
           </label>
-          <a
-            href="#"
-            className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
-          >
-            Forget Password?
-          </a>
+         
         </div>
         <input
           id="loggingPassword"
+          placeholder="Enter Password"
           type="password"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
         />
@@ -104,12 +81,12 @@ const Login = () => {
       {/* Sign-Up Link */}
       <div className="flex items-center justify-between mt-4">
         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-        <a
-          href="#"
+        <Link
+          to="/register"
           className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
         >
-          or sign up
-        </a>
+          or Register
+        </Link>
         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
       </div>
     </div>
