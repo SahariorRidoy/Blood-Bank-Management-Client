@@ -4,15 +4,15 @@ import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/Router.jsx";
-import { Toaster } from "react-hot-toast";
 import AuthProvider from "./Provider/AuthProvider.jsx";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
         <RouterProvider router={router}>
-          <Toaster />
+        <Toaster />
         </RouterProvider>
       </AuthProvider>
     </ThemeProvider>

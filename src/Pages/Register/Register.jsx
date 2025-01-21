@@ -1,44 +1,103 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import icon from "../../assets/logo.jpg";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import districts from '../../Data/Districts.json';
 import upazilas from '../../Data/Upazilas.json';
 import image from "../../assets/bandage-with-heart-it.jpg";
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Register = () => {
   const [bloodGroup, setBloodGroup] = useState("");
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
+  const navigate = useNavigate();
+  const { createNewUser,user, setUser, updateUserProfile } = useContext(AuthContext);
 
+  // Upload image at imgBB Key
+  const imageUploadKey = import.meta.env.VITE_imgBB_API;
+  const imageUploadApi = `https://api.imgbb.com/1/upload?key=${imageUploadKey}`;
+  console.log(user);
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
     setDistrict(selectedDistrict);
 
-    // Filter upazilas based on the selected district_id
+    // Filter upazila
     const relatedUpazilas = upazilas.filter(
       (upazila) => upazila.district_id === selectedDistrict
     );
     setFilteredUpazilas(relatedUpazilas);
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+  
+    
     const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const username = formData.get("username");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+    const imageFile = formData.get("avatar");
 
-    const userData = {
-      email: formData.get("email"),
-      username: formData.get("username"),
-      avatar: formData.get("avatar"),
-      bloodGroup: formData.get("bloodGroup"),
-      district: formData.get("district"),
-      upazila: formData.get("upazila"),
-      password: formData.get("password"),
-      confirmPassword: formData.get("confirmPassword"),
-      status: "active", // Default status
-    };
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Passwords do not match!',
+        text: 'Please confirm your password correctly.',
+      });
+      return;
+    }
 
-    console.log(userData); // Replace this with API call to register user
+    const imageData = new FormData();
+    imageData.append("image", imageFile);
+
+    try {
+      const response = await axios.post(imageUploadApi, imageData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const imageUrl = response.data.data.url;
+      console.log("Uploaded image URL:", imageUrl);
+
+      const userData = {
+        email,
+        username,
+        image: imageUrl,
+        bloodGroup: formData.get("bloodGroup"),
+        district: formData.get("district"),
+        upazila: formData.get("upazila"),
+        status: "active",
+      };
+
+      console.log("User Data to Register:", userData);
+
+      const { user } = await createNewUser(email, password);
+      setUser(user);
+
+      await updateUserProfile({ displayName: username, photoURL: imageUrl });
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Registration successful!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      e.target.reset();
+      navigate('/login');
+    } catch (error) {
+      console.error("Registration error:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration failed!',
+        text: 'Something went wrong. Please try again.',
+      });
+    }
   };
 
   return (
@@ -48,7 +107,7 @@ const Register = () => {
         className="w-1/2 bg-cover bg-center"
         style={{
           backgroundImage: `url(${image})`,
-          height: '100vh',
+          height: '85vh',
         }}
       ></div>
 
@@ -56,7 +115,7 @@ const Register = () => {
       <div className="flex items-center justify-center px-6 mx-auto lg:w-1/2">
         <form className="w-full max-w-md" onSubmit={handleRegister}>
           <div className="flex justify-center mx-auto">
-            <img className="w-auto h-32 sm:h-40" src={icon} alt="Logo" />
+            <img className="w-auto h-24 sm:h-24" src={icon} alt="Logo" />
           </div>
 
           {/* Email */}
@@ -83,7 +142,7 @@ const Register = () => {
 
           {/* Profile Photo */}
           <div className="mt-4 ">
-  <label htmlFor="image" className="block text-sm text-gray-500 dark:text-gray-300 ml-12">Avatar</label>
+  <label  className="block text-sm text-gray-500 dark:text-gray-300 ml-12">Avatar</label>
   <input
     type="file"
     name="avatar"

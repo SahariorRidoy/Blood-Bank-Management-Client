@@ -25,11 +25,6 @@ const userLogin = (email, password) => {
   setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
-// Google login
-  const googleProvider = new GoogleAuthProvider();
-  const handleGoogleLogin = () => {
-    return signInWithPopup(auth, googleProvider);
-  };
 
 //   Logout
 const logOut = () => {
@@ -43,12 +38,12 @@ const updateUserProfile = (updatedData) => {
   };
 
 
+
       
       // Passing data using context
   const authInfo = {
     createNewUser,
     userLogin,
-    handleGoogleLogin,
     logOut,
     user,
     loading,

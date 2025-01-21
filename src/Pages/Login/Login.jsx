@@ -1,7 +1,47 @@
 import icon from "../../assets/logo.jpg"
 import image from "../../assets/bandage-with-heart-it.jpg"
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { userLogin, user, setUser } = useContext(AuthContext);
+
+
+  const handleLogin=(e)=>{
+    e.preventDefault();
+    const email=e.target.email.value;
+    const password=e.target.password.value;
+    userLogin(email, password)
+    .then((result) => {
+      const user = result.user;
+      setUser(user);
+       Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Login successful!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+      setTimeout(() => {
+        navigate(location?.state ? location.state : "/");
+      }, 500);
+    })
+    .catch((error) => {
+      
+       Swal.fire({
+              icon: 'error',
+              title: 'Invalid email or password!',
+              text: 'Please Provide valid information..',
+            });
+    });
+};
+
+    console.log(user);
+    
+  
   return (
    
 
@@ -37,15 +77,16 @@ const Login = () => {
       </div>
 
       {/* Email Input */}
-      <div className="mt-4">
+     <form onSubmit={handleLogin}>
+     <div className="mt-4">
         <label
-          htmlFor="LoggingEmailAddress"
+          
           className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
         >
           Email Address
         </label>
         <input
-          id="LoggingEmailAddress"
+          name="email"
           type="email"
           placeholder="Enter email"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
@@ -56,7 +97,7 @@ const Login = () => {
       <div className="mt-4">
         <div className="flex justify-between">
           <label
-            htmlFor="loggingPassword"
+            
             className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
           >
             Password
@@ -64,7 +105,7 @@ const Login = () => {
          
         </div>
         <input
-          id="loggingPassword"
+          name="password"
           placeholder="Enter Password"
           type="password"
           className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
@@ -74,10 +115,11 @@ const Login = () => {
       {/* Sign-In Button */}
       <div className="mt-6">
         <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-          Sign In
+          Login
         </button>
       </div>
 
+     </form>
       {/* Sign-Up Link */}
       <div className="flex items-center justify-between mt-4">
         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
@@ -85,7 +127,7 @@ const Login = () => {
           to="/register"
           className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
         >
-          or Register
+            Dont have an account? Register
         </Link>
         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
       </div>
