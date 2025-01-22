@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userLogin, user, setUser } = useContext(AuthContext);
+  const { userLogin, setUser } = useContext(AuthContext);
 
 
   const handleLogin=(e)=>{
@@ -38,14 +38,12 @@ const Login = () => {
             });
     });
 };
-
-    console.log(user);
     
   
   return (
    
 
-    <div className="flex w-full max-w-lg mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
+    <div className="flex w-full max-w-lg mx-auto mt-16 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
     {/* Background Image Section */}
     <div
       className="hidden bg-cover object-fill lg:block lg:w-1/2"

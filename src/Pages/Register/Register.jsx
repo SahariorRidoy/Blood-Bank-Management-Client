@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import icon from "../../assets/logo.jpg";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import districts from '../../Data/Districts.json';
 import upazilas from '../../Data/Upazilas.json';
 import image from "../../assets/bandage-with-heart-it.jpg";
@@ -14,12 +14,13 @@ const Register = () => {
   const [upazila, setUpazila] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const navigate = useNavigate();
-  const { createNewUser,user, setUser, updateUserProfile } = useContext(AuthContext);
+  const location = useLocation();
+  const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
 
   // Upload image at imgBB Key
   const imageUploadKey = import.meta.env.VITE_imgBB_API;
   const imageUploadApi = `https://api.imgbb.com/1/upload?key=${imageUploadKey}`;
-  console.log(user);
+
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
     setDistrict(selectedDistrict);
@@ -71,6 +72,7 @@ const Register = () => {
         district: formData.get("district"),
         upazila: formData.get("upazila"),
         status: "active",
+        role:"donor"
       };
 
       console.log("User Data to Register:", userData);
@@ -89,7 +91,7 @@ const Register = () => {
       });
 
       e.target.reset();
-      navigate('/login');
+      navigate(location?.state ? location.state : "/");
     } catch (error) {
       console.error("Registration error:", error);
       Swal.fire({
@@ -101,7 +103,7 @@ const Register = () => {
   };
 
   return (
-    <section className="flex w-[1320px] mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-900">
+    <section className="flex w-[1320px] mx-auto mt-16 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-900">
       {/* Left Image */}
       <div
         className="w-1/2 bg-cover bg-center"

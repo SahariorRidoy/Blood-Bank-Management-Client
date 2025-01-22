@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 
 import app from "../Authentication/firebase.config";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext();
 
@@ -29,7 +30,14 @@ const userLogin = (email, password) => {
 //   Logout
 const logOut = () => {
   setLoading(true)
-    toast.success("Log out successful!", { duration: 3000 });
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Log Out Successful.",
+    showConfirmButton: false,
+    timer: 1500
+  });
+ 
     return signOut(auth);
   };
 // Update user email and photo data
