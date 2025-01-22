@@ -4,7 +4,7 @@ import { FooterWithLogo } from "../components/Footer/FooterWithLogo";
 
 const MainLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="max-w-[1320px] mx-auto flex flex-col min-h-screen">
       
         <StickyNavbar></StickyNavbar>
         <div className="flex-grow mt-10">

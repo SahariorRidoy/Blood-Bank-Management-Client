@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Dashboard = () => {
+    const {user}=useContext(AuthContext)
     return (
-        <div>
-            This is Dashboard
-        </div>
+        <div className=" max-w-[1320px] mx-auto mt-10 flow-root">
+  This is Dashboard
+</div>
     );
 };
 

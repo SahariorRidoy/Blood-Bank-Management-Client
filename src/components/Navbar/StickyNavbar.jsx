@@ -81,9 +81,9 @@ export function StickyNavbar() {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <a href="#" className="flex items-center">
+            <NavLink to="/search" className="flex items-center">
               Search
-            </a>
+            </NavLink>
           </Typography>
           <Typography
             as="li"
@@ -91,9 +91,9 @@ export function StickyNavbar() {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <a href="#" className="flex items-center">
+            <NavLink to="/funding" className="flex items-center">
               Funding
-            </a>
+            </NavLink>
           </Typography>
         </>
       ) : (
