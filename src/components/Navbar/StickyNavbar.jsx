@@ -59,9 +59,9 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <NavLink to="/donation-request"  className="flex items-center">
           Donation Request
-        </a>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -69,9 +69,9 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <NavLink to="/blog" className="flex items-center">
           Blog
-        </a>
+        </NavLink>
       </Typography>
       {user ? (
         <>
@@ -95,6 +95,7 @@ export function StickyNavbar() {
               Funding
             </NavLink>
           </Typography>
+          
         </>
       ) : (
         ""
@@ -109,7 +110,7 @@ export function StickyNavbar() {
           <Typography
             as="a"
             href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
+            className="mr-4 cursor-pointer py-1.5 font-extrabold text-red-600 text-xl"
           >
             Blood Bank
           </Typography>
