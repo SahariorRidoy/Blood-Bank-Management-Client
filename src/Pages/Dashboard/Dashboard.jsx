@@ -18,7 +18,6 @@ const Dashboard = () => {
           setLoading(false);
         })
         .catch((error) => {
-          console.error('Error fetching user data:', error);
           setLoading(false);
         });
     }
@@ -45,7 +44,7 @@ const Dashboard = () => {
             Donor Home 🏠
           </NavLink>
           <NavLink
-            to="/my-donation-request"
+            to="/dashboard/my-donation-request"
             className={({ isActive }) =>
               isActive
                 ? 'text-blue-600 font-semibold py-2 md:py-3 px-3 md:px-4 rounded-lg bg-white shadow-md text-sm transition-all duration-300 ease-in-out'
@@ -55,7 +54,7 @@ const Dashboard = () => {
             My Donation Requests 🩸
           </NavLink>
           <NavLink
-            to="/create-donation-request"
+            to="/dashboard/create-donation-request"
             className={({ isActive }) =>
               isActive
                 ? 'text-blue-600 font-semibold py-2 md:py-3 px-3 md:px-4 rounded-lg bg-white shadow-md text-sm transition-all duration-300 ease-in-out'
