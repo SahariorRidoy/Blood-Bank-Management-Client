@@ -62,7 +62,7 @@ const Register = () => {
         },
       });
       const imageUrl = response.data.data.url;
-      console.log("Uploaded image URL:", imageUrl);
+     
 
       const userData = {
         email,
@@ -75,12 +75,12 @@ const Register = () => {
         role:"donor"
       };
 
-      console.log("User Data to Register:", userData);
-
+      // Store user data into firebase
       const { user } = await createNewUser(email, password);
       setUser(user);
-
       await updateUserProfile({ displayName: username, photoURL: imageUrl });
+
+      await axios.post("http://localhost:5000/users", userData);
 
       Swal.fire({
         position: "top-end",
