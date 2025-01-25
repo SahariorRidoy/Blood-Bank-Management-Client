@@ -10,6 +10,8 @@ import FundingPage from "../Pages/Home/FundingPage/FundingPage";
 import SearchPage from "../Pages/SearchPage/SearchPage";
 import DonationRequest from "../Pages/DonationRequest/DonationRequest";
 import BlogPage from "../Pages/BlogPage/BlogPage";
+import AdminHome from "../components/AdminDashboard/AdminHome";
+import AllUsers from "../components/AdminDashboard/AllUsers";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,11 +45,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
+    element: 
       <PrivateRoute>
         <Dashboard></Dashboard>
-      </PrivateRoute>
-    ),
+      </PrivateRoute>,
+      children: [
+        {
+          path: "",
+          element: <AdminHome></AdminHome>,
+        },
+        {
+          path: "all-users",
+          element: <AllUsers></AllUsers>,
+        },
+      ]
+    
   },
   {
     path: "/login",

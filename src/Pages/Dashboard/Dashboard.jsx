@@ -14,9 +14,7 @@ const Dashboard = () => {
       axios
         .get(`http://localhost:5000/users/${user.email}`) 
         .then((response) => {
-          console.log(response)
-          setUserRole(response.data.role); 
-          console.log(userRole)
+          setUserRole(response.data.role);
           setLoading(false);
         })
         .catch((error) => {
@@ -83,7 +81,7 @@ const Dashboard = () => {
             Admin Home 🏠
           </NavLink>
           <NavLink
-            to="/all-users"
+            to="/dashboard/all-users"
             className={({ isActive }) =>
               isActive
                 ? 'text-blue-600 font-semibold py-2 md:py-3 px-3 md:px-4 rounded-lg bg-white shadow-md text-sm transition-all duration-300 ease-in-out'
