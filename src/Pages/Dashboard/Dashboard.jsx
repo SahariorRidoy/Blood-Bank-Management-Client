@@ -160,7 +160,18 @@ const Dashboard = () => {
         </h2>
         {renderNavLinks()}
 
-        <br /><br />
+        
+        <NavLink
+            to="/dashboard/profile"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-blue-600 font-semibold py-2 md:py-3 px-3 md:px-4 rounded-lg bg-white shadow-md text-sm transition-all duration-300 ease-in-out'
+                : 'text-white py-2 md:py-3 px-3 md:px-4 rounded-lg text-sm hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out'
+            }
+          >
+            Profile
+          </NavLink>
+          <br /><br />
         <NavLink
             to="/"
             className={({ isActive }) =>

@@ -35,14 +35,16 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
   
-    
     const formData = new FormData(e.target);
     const email = formData.get("email");
     const username = formData.get("username");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
     const imageFile = formData.get("avatar");
-
+  
+    const selectedDistrictId = formData.get("district");
+    const selectedDistrict = districts.find(d => d.id === selectedDistrictId)?.name;
+  
     if (password !== confirmPassword) {
       Swal.fire({
         icon: 'error',
@@ -51,10 +53,10 @@ const Register = () => {
       });
       return;
     }
-
+  
     const imageData = new FormData();
     imageData.append("image", imageFile);
-
+  
     try {
       const response = await axios.post(imageUploadApi, imageData, {
         headers: {
@@ -62,26 +64,24 @@ const Register = () => {
         },
       });
       const imageUrl = response.data.data.url;
-     
-
+  
       const userData = {
         email,
         username,
         image: imageUrl,
         bloodGroup: formData.get("bloodGroup"),
-        district: formData.get("district"),
+        district: selectedDistrict, 
         upazila: formData.get("upazila"),
         status: "active",
-        role:"donor"
+        role: "donor",
       };
-
-      // Store user data into firebase
+  
       const { user } = await createNewUser(email, password);
       setUser(user);
       await updateUserProfile({ displayName: username, photoURL: imageUrl });
-
+  
       await axios.post("http://localhost:5000/users", userData);
-
+  
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -89,7 +89,7 @@ const Register = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-
+  
       e.target.reset();
       navigate(location?.state ? location.state : "/");
     } catch (error) {
@@ -101,6 +101,7 @@ const Register = () => {
       });
     }
   };
+  
 
   return (
     <section className="flex w-[1320px] mx-auto mt-16 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-900">
@@ -202,7 +203,7 @@ const Register = () => {
             >
               <option value="" disabled>Select Upazila</option>
               {filteredUpazilas.map((upazila) => (
-                <option key={upazila.id}>
+                <option key={upazila.id} value={upazila.name}>
                   {upazila.name}
                 </option>
               ))}

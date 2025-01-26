@@ -14,6 +14,7 @@ import AdminHome from "../components/AdminDashboard/AdminHome";
 import AllUsers from "../components/AdminDashboard/AllUsers";
 import CreateDonationRequest from "../components/DonorDashboard/CreateDonationRequest";
 import MyDonationRequests from "../components/DonorDashboard/MyDonationRequests";
+import UserProfileDashboard from "../components/SharedDashbard/UserProfileDashboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
         {
           path:"my-donation-request",
           element:<MyDonationRequests></MyDonationRequests>
+        },
+        {
+          path:"profile",
+          element:<UserProfileDashboard></UserProfileDashboard>
         }
       ]
     
