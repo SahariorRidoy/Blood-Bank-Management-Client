@@ -23,7 +23,7 @@ const AllDonationRequest = () => {
     const fetchDonationRequests = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/donation-requests/${user.email}`
+          `http://localhost:5000/donation-requests`
         );
         setDonationRequests(response.data);
         setFilteredRequests(response.data);
@@ -115,10 +115,10 @@ const AllDonationRequest = () => {
   return (
     <div className="px-6 bg-gray-100">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">My Donation Requests</h2>
+        <h2 className="text-2xl font-bold text-red-600 mb-4">All Blood Donation Requests</h2>
 
         {/* Filter Section */}
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 ">
           <label htmlFor="statusFilter" className="font-medium text-gray-700">
             Filter by Status:
           </label>
@@ -126,7 +126,7 @@ const AllDonationRequest = () => {
             id="statusFilter"
             value={statusFilter}
             onChange={handleFilterChange}
-            className="ml-2 px-4 py-2 border rounded-lg focus:ring focus:ring-red-300"
+            className="ml-2 px-4 py-2 border border-red-400 rounded-lg focus:ring focus:ring-red-300"
           >
             <option value="">All</option>
             <option value="pending">Pending</option>
