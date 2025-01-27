@@ -53,7 +53,14 @@ const ContentManagement = () => {
         ...blog,
         status: updatedStatus,
       });
-      refetch(); // Refetch blogs after updating the status
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successful!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      refetch(); 
     } catch (error) {
       console.error("Error updating blog status", error);
     }

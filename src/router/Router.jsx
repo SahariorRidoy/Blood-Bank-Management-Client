@@ -18,6 +18,7 @@ import UserProfileDashboard from "../components/SharedDashbard/UserProfileDashbo
 import AllDonationRequest from "../components/AdminDashboard/AllDonationRequest";
 import ContentManagement from "../components/AdminDashboard/ContentManagement";
 import AddBlog from "../components/AdminDashboard/AddBlog";
+import BlogDetails from "../Pages/BlogPage/BlogDetails";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,12 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <BlogPage></BlogPage>,
+        
       },
+      {
+        path:"/blog/:id",
+         element:<BlogDetails/>
+      }
     ],
   },
   {
