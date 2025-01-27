@@ -12,7 +12,7 @@ const AllDonationRequest = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
-  const [isMenuOpen, setIsMenuOpen] = useState(null); 
+  const [isMenuOpen, setIsMenuOpen] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -113,12 +113,12 @@ const AllDonationRequest = () => {
   };
 
   return (
-    <div className="px-6 bg-gray-100">
+    <div className=" bg-gray-100 border border-gray-400 rounded-md">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-md p-6">
         <h2 className="text-2xl font-bold text-red-600 mb-4">All Blood Donation Requests</h2>
 
         {/* Filter Section */}
-        <div className="mb-4 ">
+        <div className="mb-4">
           <label htmlFor="statusFilter" className="font-medium text-gray-700">
             Filter by Status:
           </label>
