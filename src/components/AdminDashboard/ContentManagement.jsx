@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const ContentManagement = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const { user, loading, setLoading } = useContext(AuthContext);
+  const [userRole, setUserRole] = useState(null);
   const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // For automatic refetching after delete or update
 
+  // Fetch user role
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/blogs");
-        setBlogs(response.data);
-        setFilteredBlogs(response.data);
-      } catch (error) {
-        console.error("Error fetching blogs", error);
-      }
-    };
-    fetchBlogs();
-  }, []);
+    if (user?.email) {
+      axios
+        .get(`http://localhost:5000/users/${user.email}`) 
+        .then((response) => {
+          setUserRole(response.data.role);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    }
+  }, [user]);
+
+  // Fetch blogs
+  const { data: blogs, refetch } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const response = await axios.get("http://localhost:5000/blogs");
+      return response.data;
+    },
+    onError: (error) => {
+      console.error("Error fetching blogs", error);
+    },
+  });
 
   const handleFilterChange = (e) => {
-    const filter = e.target.value;
-    setStatusFilter(filter);
-    if (filter === "") {
-      setFilteredBlogs(blogs);
-    } else {
-      setFilteredBlogs(blogs.filter((blog) => blog.status === filter));
-    }
+    setStatusFilter(e.target.value);
     setCurrentPage(1);
   };
-
-  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
-
-  const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
-  const currentBlogs = filteredBlogs.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   const handlePublishToggle = async (blog) => {
     const updatedStatus = blog.status === "draft" ? "published" : "draft";
     try {
-      await axios.put(`http://localhost:5000/blogs/${blog.id}`, {
+      await axios.put(`http://localhost:5000/blogs/${blog._id}`, {
         ...blog,
         status: updatedStatus,
       });
-      setBlogs(
-        blogs.map((b) =>
-          b.id === blog.id ? { ...b, status: updatedStatus } : b
-        )
-      );
+      refetch(); // Refetch blogs after updating the status
     } catch (error) {
       console.error("Error updating blog status", error);
     }
@@ -61,23 +61,38 @@ const ContentManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/blogs/${id}`);
-      setBlogs(blogs.filter((blog) => blog.id !== id));
+      const response = await axios.delete(`http://localhost:5000/blogs/${id}`);
+      if (response.status === 200) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Blog Deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch(); // Refetch blogs after deleting a blog
+      }
     } catch (error) {
       console.error("Error deleting blog", error);
     }
   };
 
+  // Handle pagination
+  const totalPages = Math.ceil(blogs?.length / itemsPerPage);
+  const currentBlogs = blogs?.filter(blog => {
+    if (statusFilter === "") return true;
+    return blog.status === statusFilter;
+  }).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="p-4 md:p-8 lg:p-12 bg-gray-100 min-h-screen">
-      {/* Header Section */}
+    <div className="p-4 md:p-8 lg:p-12 bg-gray-100">
       <div className="flex justify-between items-center bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg">
-        <h2 className="text-lg md:text-2xl font-bold">
-          Blood Bank Content Management
-        </h2>
+        <h2 className="text-lg md:text-2xl font-bold">Blood Bank Content Management</h2>
         <button
           onClick={() => navigate("/dashboard/content-management/add-blog")}
-          className="bg-white font-bold  text-red-600 px-4 py-2 rounded-md shadow hover:bg-gray-400 transition"
+          className="bg-white font-bold text-red-600 px-4 py-2 rounded-md shadow hover:bg-gray-400 transition"
         >
           Add Blog
         </button>
@@ -85,9 +100,7 @@ const ContentManagement = () => {
 
       {/* Filter Section */}
       <div className="my-6">
-        <label className="block text-gray-700 font-medium mb-2">
-          Filter by Status:
-        </label>
+        <label className="block text-gray-700 font-medium mb-2">Filter by Status:</label>
         <select
           value={statusFilter}
           onChange={handleFilterChange}
@@ -101,51 +114,53 @@ const ContentManagement = () => {
 
       {/* Blog List Section */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {currentBlogs.map((blog) => (
-          <div
-            key={blog?.id}
-            className="p-4 bg-white rounded-lg shadow-lg border border-gray-400"
-          >
-            <h4
-              className={`capitalize border border-gray-400 inline-block px-2 py-1 rounded-lg text-xs font-bold ${
-                blog.status === "draft" ? "text-red-500" : "text-green-500"
-              }`}
-            >
-              {blog.status === "draft" ? "Draft" : "Published"}
-            </h4>
-            <h3 className="text-lg font-bold text-red-600">{blog?.title}</h3>
-            <p className="text-gray-600 mt-2">
-              {blog?.content.slice(0, 100)}...
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <button
-                onClick={() =>
-                  navigate(
-                    `/dashboard/content-management/edit-blog/${blog?.id}`
-                  )
-                }
-                className="bg-blue-500 text-white px-3 py-1 rounded-md shadow hover:bg-blue-600 transition"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handlePublishToggle(blog)}
-                className={`${
-                  blog.status === "draft" ? "bg-green-500" : "bg-purple-400"
-                } text-white px-3 py-1 rounded-md shadow hover:opacity-90 transition`}
-              >
-                {blog.status === "draft" ? "Publish" : "Unpublish"}
-              </button>
-              <button
-                onClick={() => handleDelete(blog?.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+  {currentBlogs?.map((blog) => (
+    <div key={blog._id} className="p-4 bg-white rounded-lg shadow-lg border border-gray-400 flex flex-col">
+      <div className="flex items-center">
+        <h4
+          className={`capitalize inline-block border border-gray-400 px-2 py-1 rounded-lg text-xs font-bold ${
+            blog.status === "draft" ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          {blog.status === "draft" ? "Draft" : "Published"}
+        </h4>
       </div>
+      <h3 className="text-lg font-bold text-red-600">{blog?.title}</h3>
+      <p className="text-gray-600 mt-2 flex-grow">{blog?.content.slice(0, 100)}...</p>
+      <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-300 w-full">
+        <button
+          onClick={() =>
+            navigate(`/dashboard/content-management/edit-blog/${blog?._id}`)
+          }
+          className="bg-blue-500 text-white px-3 py-1 rounded-md shadow hover:bg-blue-600 transition"
+        >
+          Edit
+        </button>
+        {userRole === "admin" ? (
+          <>
+            <button
+              onClick={() => handlePublishToggle(blog)}
+              className={`${
+                blog.status === "draft" ? "bg-green-500" : "bg-purple-400"
+              } text-white px-3 py-1 rounded-md shadow hover:opacity-90 transition`}
+            >
+              {blog.status === "draft" ? "Publish" : "Unpublish"}
+            </button>
+            <button
+              onClick={() => handleDelete(blog._id)}
+              className="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
+          </>
+        ) : (
+          ""
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
 
       {/* Pagination Section */}
       <div className="flex justify-between items-center mt-6">
