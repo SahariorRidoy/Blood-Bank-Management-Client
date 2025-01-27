@@ -167,8 +167,8 @@ const AllDonationRequest = () => {
                     <td className="px-4 py-3 border">{request.donationTime}</td>
                     <td className="px-4 py-3 border">{request.donationStatus}</td>
                     <td className="px-4 py-3 border">
-                      {request.donationStatus === "inprogress" && request.donorInfo
-                        ? `${request.donorInfo.name} (${request.donorInfo.email})`
+                      {request.donationStatus === "inprogress"
+                        ? `${request.donorName} (${request.donorEmail})`
                         : "N/A"}
                     </td>
                     <td className="px-4 py-3 border flex gap-2 relative">

@@ -19,6 +19,7 @@ import AllDonationRequest from "../components/AdminDashboard/AllDonationRequest"
 import ContentManagement from "../components/AdminDashboard/ContentManagement";
 import AddBlog from "../components/AdminDashboard/AddBlog";
 import BlogDetails from "../Pages/BlogPage/BlogDetails";
+import DonationRequestDetails from "../Pages/DonationRequest/DonationRequestDetails";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/donation-request",
         element: <DonationRequest></DonationRequest>,
+      },
+      {
+        path: "/donation-request/:id",
+        element: <PrivateRoute><DonationRequestDetails></DonationRequestDetails></PrivateRoute>,
       },
       {
         path: "/search",

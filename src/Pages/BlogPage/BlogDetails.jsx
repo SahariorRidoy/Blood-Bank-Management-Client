@@ -12,9 +12,7 @@ const BlogDetails = () => {
       .then((response) => {
         setBlog(response.data);
       })
-      .catch((error) => {
-        console.error("Error fetching blog", error);
-      });
+      
   }, [id]);
 
   if (!blog) {
