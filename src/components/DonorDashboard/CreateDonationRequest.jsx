@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import districts from '../../Data/Districts.json';
-import upazilas from '../../Data/Upazilas.json';
+import districts from "../../Data/Districts.json";
+import upazilas from "../../Data/Upazilas.json";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -12,30 +12,6 @@ const CreateDonationRequest = () => {
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
-  
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user?.email) {
-      axios
-        .get(`http://localhost:5000/users/${user.email}`) 
-        .then((response) => {
-          setUserStatus(response.data.status);
-        })
-    }
-  }, [user]);
-  console.log(userStatus);
-  
-
-  const handleDistrictChange = (e) => {
-    const selectedDistrict = e.target.value;
-    setDistrict(selectedDistrict);
-
-    // Filter upazila
-    const relatedUpazilas = upazilas.filter(
-      (upazila) => upazila.district_id === selectedDistrict
-    );
-    setFilteredUpazilas(relatedUpazilas);
-  };
   const [formData, setFormData] = useState({
     recipientName: "",
     recipientDistrict: "",
@@ -47,23 +23,54 @@ const CreateDonationRequest = () => {
     donationTime: "",
     requestMessage: "",
   });
-
- 
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`http://localhost:5000/users/${user.email}`)
+        .then((response) => {
+          setUserStatus(response.data.status);
+        });
+    }
+  }, [user]);
+  console.log(userStatus);
+
+  const handleDistrictChange = (e) => {
+    const selectedDistrictId = e.target.value;
+    const selectedDistrictName = districts.find(
+      (district) => district.id === selectedDistrictId
+    )?.name;
+
+    setDistrict(selectedDistrictId);
+    setFormData((prev) => ({
+      ...prev,
+      recipientDistrict: selectedDistrictName || "", // Set the district name here
+    }));
+
+    // Filter upazilas
+    const relatedUpazilas = upazilas.filter(
+      (upazila) => upazila.district_id === selectedDistrictId
+    );
+    setFilteredUpazilas(relatedUpazilas);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const donationRequest = {
       ...formData,
+
       requesterName: user?.displayName || "Unknown User",
       requesterEmail: user?.email || "No Email",
-      donationStatus: "pending", 
+      donationStatus: "pending",
     };
 
     try {
@@ -71,14 +78,13 @@ const CreateDonationRequest = () => {
         "http://localhost:5000/donation-requests",
         donationRequest
       );
-      
-        Swal.fire({
-          icon: "success",
-          title: "Donation Request Created!",
-          text: "Your blood donation request has been successfully created.",
-        });
-        navigate("/dashboard/my-donation-request"); 
-      
+
+      Swal.fire({
+        icon: "success",
+        title: "Donation Request Created!",
+        text: "Your blood donation request has been successfully created.",
+      });
+      navigate("/dashboard/my-donation-request");
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -95,7 +101,8 @@ const CreateDonationRequest = () => {
           Access Denied
         </h2>
         <p className="text-center text-gray-700">
-          Your account is currently blocked. You cannot create a donation request.
+          Your account is currently blocked. You cannot create a donation
+          request.
         </p>
       </div>
     );
@@ -153,40 +160,52 @@ const CreateDonationRequest = () => {
 
           {/* District Selector */}
           <div>
-          <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-medium mb-1">
               Recipient District
             </label>
             <select
               name="district"
-              className="block w-full py-3 text-gray-700 bg-white border border-gray-400 rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full py-3 text-gray-700 bg-white border border-gray-400 rounded-lg px-11"
               value={district}
               onChange={handleDistrictChange}
               required
             >
-              <option value="" disabled>Select District</option>
+              <option value="" disabled>
+                Select District
+              </option>
               {districts.map((district) => (
                 <option key={district.id} value={district.id}>
                   {district.name}
                 </option>
               ))}
             </select>
+            F
           </div>
 
           {/* Upazila Selector */}
           <div>
-          <label className="block text-gray-700 font-medium mb-1">
-             Recipient Upazila
+            <label className="block text-gray-700 font-medium mb-1">
+              Recipient Upazila
             </label>
             <select
               name="upazila"
               className="block w-full py-3 text-gray-700 bg-white border border-gray-400 rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               value={upazila}
-              onChange={(e) => setUpazila(e.target.value)}
+              onChange={(e) => {
+                const selectedUpazila = e.target.value;
+                setUpazila(selectedUpazila);
+                setFormData((prev) => ({
+                  ...prev,
+                  recipientUpazila: selectedUpazila, 
+                }));
+              }}
               required
             >
-              <option value="" disabled>Select Upazila</option>
+              <option value="" disabled>
+                Select Upazila
+              </option>
               {filteredUpazilas.map((upazila) => (
-                <option key={upazila.id}>
+                <option key={upazila.id} value={upazila.name}>
                   {upazila.name}
                 </option>
               ))}

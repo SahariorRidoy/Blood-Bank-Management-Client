@@ -21,8 +21,9 @@ const MyDonationRequest = () => {
       try {
         if (user?.email) {
           const response = await axios.get(
-            `http://localhost:5000/donation-requests?email=${user.email}`
+            `http://localhost:5000/donation-requests/${user.email}`
           );
+          
           const donorDonations = response.data;
           const sortedDonations = donorDonations.sort(
             (a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)
