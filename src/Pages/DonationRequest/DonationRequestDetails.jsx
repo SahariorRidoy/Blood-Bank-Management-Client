@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
@@ -10,6 +10,7 @@ const DonationRequestDetails = () => {
   const { id } = useParams();
   const [request, setRequest] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate=useNavigate()
   const [donorInfo, setDonorInfo] = useState({
     name: user.displayName,
     email: user.email,
@@ -42,6 +43,7 @@ const DonationRequestDetails = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate('/donation-request')
         setModalOpen(false);
         setRequest((prev) => ({
           ...prev,

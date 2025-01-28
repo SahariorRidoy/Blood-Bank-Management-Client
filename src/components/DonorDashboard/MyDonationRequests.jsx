@@ -24,9 +24,9 @@ const MyDonationRequest = () => {
             `http://localhost:5000/donation-requests?email=${user.email}`
           );
           const donorDonations = response.data;
-          const sortedDonations = donorDonations
-            .sort((a, b) => new Date(b.requestedAt) - new Date(a.requestedAt))
-            
+          const sortedDonations = donorDonations.sort(
+            (a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)
+          );
 
           setRecentDonations(sortedDonations);
           setFilteredDonations(sortedDonations); // Initialize filtered donations
@@ -161,7 +161,7 @@ const MyDonationRequest = () => {
         </select>
       </div>
 
-      <div className="relative overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
+      <div className="relative min-h-svh overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-white uppercase bg-red-600">
             <tr>
@@ -204,20 +204,25 @@ const MyDonationRequest = () => {
                   {new Date(donation.donationDate).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4">{donation.bloodGroup}</td>
-                <td className="px-6 py-4">
-                  {donation.donationStatus === "inprogress" && (
-                    <>
-                      <p>{donation?.donorName}</p>
-                      <p>{donation?.donorEmail}</p>
-                    </>
-                  )}
-                  {donation.donationStatus === "done" && (
-                    <>
-                      <p>{donation?.donorName}</p>
-                      <p>{donation?.donorEmail}</p>
-                    </>
-                  )}
-                </td>
+                {/* Show loading if donation data is not yet available */}
+                {!donation ? (
+                  <p>Loading...</p>
+                ) : (
+                  <td className="px-6 py-4">
+                    {donation.donationStatus === "inprogress" && (
+                      <>
+                        <p>{donation.donorName}</p>
+                        <p>{donation.donorEmail}</p>
+                      </>
+                    )}
+                    {donation.donationStatus === "done" && (
+                      <>
+                        <p>{donation.donorName}</p>
+                        <p>{donation.donorEmail}</p>
+                      </>
+                    )}
+                  </td>
+                )}
 
                 <td
                   className={`px-6 py-4 ${
@@ -225,7 +230,7 @@ const MyDonationRequest = () => {
                       ? "text-green-600"
                       : donation.donationStatus === "canceled"
                       ? "text-red-600"
-                      : "text-yellow-600"
+                      : "text-blue-600"
                   }`}
                 >
                   {donation.donationStatus}
@@ -288,9 +293,9 @@ const MyDonationRequest = () => {
                               onClick={() =>
                                 handleStatusChange(donation._id, "inprogress")
                               }
-                              className="block px-4 py-2 text-yellow-600 hover:bg-yellow-100"
+                              className="block px-4 py-2 text-blue-600 hover:bg-yellow-100"
                             >
-                              Mark In Progress
+                              Make Inprogress
                             </button>
                           </li>
                         )}
@@ -302,7 +307,7 @@ const MyDonationRequest = () => {
                               }
                               className="block px-4 py-2 text-green-600 hover:bg-green-100"
                             >
-                              Mark Done
+                              Make Done
                             </button>
                           </li>
                         )}
@@ -314,7 +319,7 @@ const MyDonationRequest = () => {
                               }
                               className="block px-4 py-2 text-red-600 hover:bg-red-100"
                             >
-                              Mark Canceled
+                              Make Canceled
                             </button>
                           </li>
                         )}
