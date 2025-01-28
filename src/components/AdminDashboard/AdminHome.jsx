@@ -39,6 +39,7 @@ const AdminHome = () => {
       <h1 className="text-3xl font-bold mb-4 text-center">Welcome, <span className='text-4xl capitalize'>{user.displayName}</span></h1>
      {userRole=='admin'?<AdminDashboardHome></AdminDashboardHome>:''}
      {userRole=='donor'?<DonorDashbordHome></DonorDashbordHome>:''}
+     {userRole=='volunteer'?<AdminDashboardHome></AdminDashboardHome>:''}
     </div>
   );
 };

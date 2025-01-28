@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import districts from "../../Data/Districts.json";
 import upazilas from "../../Data/Upazilas.json";
 
-const DonorSearch = () => {
+const SearchPage = () => {
   const [bloodGroup, setBloodGroup] = useState("");
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
@@ -182,4 +182,4 @@ const DonorSearch = () => {
   );
 };
 
-export default DonorSearch;
+export default SearchPage;

@@ -3,13 +3,14 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEllipsisH } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const DonorDashbordHome = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
   const [recentDonations, setRecentDonations] = useState([]);
   const [dropdown, setDropdown] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteDonationId, setDeleteDonationId] = useState(null); // Track donation to delete
+  const [deleteDonationId, setDeleteDonationId] = useState(null); 
   const navigate = useNavigate();
 
   // Fetch recent donations of the user
@@ -61,22 +62,31 @@ const DonorDashbordHome = () => {
   };
 
   // Handle deleting a donation request
+
   const handleDeleteRequest = async (donationId) => {
-    if (
-      window.confirm("Are you sure you want to delete this donation request?")
-    ) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    });
+  
+    if (result.isConfirmed) {
       try {
-        await axios.delete(
-          `http://localhost:5000/donation-requests/${donationId}`
-        );
+        await axios.delete(`http://localhost:5000/donation-requests/${donationId}`);
         setRecentDonations((prevDonations) =>
           prevDonations.filter((donation) => donation._id !== donationId)
         );
+        Swal.fire('Deleted!', 'Your donation request has been deleted.', 'success');
       } catch (error) {
-        console.error("Error deleting donation request:", error);
+        console.error('Error deleting donation request:', error);
+        Swal.fire('Error', 'There was an error deleting the request.', 'error');
       }
     }
   };
+  
 
   // Toggle dropdown visibility
   const toggleDropdown = (id) => {
