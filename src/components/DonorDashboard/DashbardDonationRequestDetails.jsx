@@ -11,7 +11,7 @@ const DashboardDonationRequestDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/dashboard-donation-requests/${id}`)
+      .get(`https://assignment-12-server-azure.vercel.app/dashboard-donation-requests/${id}`)
       .then((response) => {
         const data = response.data;
         setRequest(data); 

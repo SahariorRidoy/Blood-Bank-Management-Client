@@ -10,7 +10,7 @@ const DonationRequests = () => {
   
   useEffect(() => {
     axios
-      .get("http://localhost:5000/donation-requests-pending")
+      .get("https://assignment-12-server-azure.vercel.app/donation-requests-pending")
       .then((response) => {
         setRequests(response.data);  
         setLoading(false);  

@@ -17,7 +17,7 @@ const AdminHome = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/users/${user.email}`) 
+        .get(`https://assignment-12-server-azure.vercel.app/users/${user.email}`) 
         .then((response) => {
           setUserRole(response.data.role);
           setLoading(false);
@@ -32,7 +32,6 @@ const AdminHome = () => {
     return <Loading />;
   }
 
-  console.log(userRole);
   
   return (
     <div className="bg-red-50 text-red-700 p-6 rounded-xl shadow-lg">

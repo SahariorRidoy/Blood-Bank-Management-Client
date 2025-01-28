@@ -17,7 +17,7 @@ const UserProfileDashboard = () => {
     if (user?.email) {
         
       axios
-        .get(`http://localhost:5000/users/${user.email}`)
+        .get(`https://assignment-12-server-azure.vercel.app/users/${user.email}`)
         .then((response) => {
           setUserData(response.data);
           setOriginalUserData(response.data);
@@ -39,7 +39,7 @@ const UserProfileDashboard = () => {
     if (!userData) return;
     setIsSaving(true);
     axios
-      .put(`http://localhost:5000/users/${user.email}`, userData)
+      .put(`https://assignment-12-server-azure.vercel.app/users/${user.email}`, userData)
       .then((response) => {
         Swal.fire({
           icon: "success",

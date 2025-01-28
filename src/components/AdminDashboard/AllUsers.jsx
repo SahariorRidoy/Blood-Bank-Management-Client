@@ -16,12 +16,12 @@ const AllUsers = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get("http://localhost:5000/users");
+      const response = await axios.get("https://assignment-12-server-azure.vercel.app/users");
       setUsers(response.data);
       setLoading(false);
     };
     fetchUsers();
-  }, [setLoading]);
+  }, []);
 
   const toggleMenu = (userId) => {
     setIsMenuOpen(isMenuOpen === userId ? null : userId); // Toggle the menu visibility
@@ -40,7 +40,7 @@ const AllUsers = () => {
       });
   
       if (result.isConfirmed) {
-        const response = await axios.delete(`http://localhost:5000/users/${userId}`);
+        const response = await axios.delete(`https://assignment-12-server-azure.vercel.app/users/${userId}`);
   
         if (response.status === 200) {
           setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
@@ -84,7 +84,7 @@ const AllUsers = () => {
   
       if (result.isConfirmed) {
         const response = await axios.patch(
-          `http://localhost:5000/users/${userId}`,
+          `https://assignment-12-server-azure.vercel.app/users/${userId}`,
           { status: newStatus }
         );
   
@@ -134,7 +134,7 @@ const AllUsers = () => {
         // Toggle between "donor" and "volunteer"
         const newRole = currentRole === "donor" ? "volunteer" : "donor";
         const response = await axios.patch(
-          `http://localhost:5000/users/${userId}`,
+          `https://assignment-12-server-azure.vercel.app/users/${userId}`,
           {
             role: newRole,
           }
@@ -191,7 +191,7 @@ const AllUsers = () => {
       });
   
       if (result.isConfirmed) {
-        const response = await axios.patch(`http://localhost:5000/users/${userId}`, {
+        const response = await axios.patch(`https://assignment-12-server-azure.vercel.app/users/${userId}`, {
           role: "admin",
         });
   

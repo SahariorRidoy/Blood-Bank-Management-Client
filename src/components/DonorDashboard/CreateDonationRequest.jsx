@@ -29,7 +29,7 @@ const CreateDonationRequest = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/users/${user.email}`)
+        .get(`https://assignment-12-server-azure.vercel.app/users/${user.email}`)
         .then((response) => {
           setUserStatus(response.data.status);
         });
@@ -75,7 +75,7 @@ const CreateDonationRequest = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/donation-requests",
+        "https://assignment-12-server-azure.vercel.app/donation-requests",
         donationRequest
       );
 

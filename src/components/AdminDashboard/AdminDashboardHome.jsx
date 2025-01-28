@@ -10,7 +10,7 @@ const AdminDashboardHome = () => {
       const [totalDonation,setTotalDonation]=useState([])
       useEffect(() => {
         const fetchUsers = async () => {
-          const response = await axios.get('http://localhost:5000/users');
+          const response = await axios.get('https://assignment-12-server-azure.vercel.app/users');
           setUsers(response.data);
           setLoading(false);
         };
@@ -18,13 +18,12 @@ const AdminDashboardHome = () => {
       }, [setLoading]);
     useEffect(() => {
         const fetchUsers = async () => {
-          const response = await axios.get('http://localhost:5000/donation-requests');
+          const response = await axios.get('https://assignment-12-server-azure.vercel.app/donation-requests');
           setTotalDonation(response.data);
           setLoading(false);
         };
         fetchUsers();
       }, [setLoading]);
-      console.log(users);
       
     return (
         <div>

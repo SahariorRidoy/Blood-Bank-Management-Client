@@ -8,7 +8,7 @@ const BlogDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/blogs/${id}`)
+      .get(`https://assignment-12-server-azure.vercel.app/blogs/${id}`)
       .then((response) => {
         setBlog(response.data);
       })

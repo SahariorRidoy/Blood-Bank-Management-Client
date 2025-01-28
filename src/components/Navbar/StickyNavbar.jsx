@@ -17,7 +17,6 @@ export function StickyNavbar() {
 
   const { user, logOut } = useContext(AuthContext);
 
-  //  Dropdown into image
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -36,7 +35,6 @@ export function StickyNavbar() {
     };
   }, []);
 
-  // Handle click on profile image to toggle dropdown
   const handleProfileClick = () => {
     setIsDropdownVisible((prev) => !prev);
   };
@@ -49,7 +47,12 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <NavLink to="/" className="flex items-center">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg ${isActive ? "bg-red-100 text-red-500 font-bold" : "hover:text-red-600"}`
+          }
+        >
           Home
         </NavLink>
       </Typography>
@@ -59,7 +62,12 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <NavLink to="/donation-request"  className="flex items-center">
+        <NavLink
+          to="/donation-request"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg ${isActive ? "bg-red-100 text-red-500 font-bold" : "hover:text-red-600"}`
+          }
+        >
           Donation Request
         </NavLink>
       </Typography>
@@ -69,7 +77,12 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <NavLink to="/blog" className="flex items-center">
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg ${isActive ? "bg-red-100 text-red-500 font-bold" : "hover:text-red-600"}`
+          }
+        >
           Blog
         </NavLink>
       </Typography>
@@ -81,7 +94,12 @@ export function StickyNavbar() {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <NavLink to="/search" className="flex items-center">
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                `flex items-center px-3 py-2 rounded-lg ${isActive ? "bg-red-100 text-red-500 font-bold" : "hover:text-red-600"}`
+              }
+            >
               Search
             </NavLink>
           </Typography>
@@ -91,11 +109,15 @@ export function StickyNavbar() {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <NavLink to="/funding" className="flex items-center">
+            <NavLink
+              to="/funding"
+              className={({ isActive }) =>
+                `flex items-center px-3 py-2 rounded-lg ${isActive ? "bg-red-100 text-red-500 font-bold" : "hover:text-red-600"}`
+              }
+            >
               Funding
             </NavLink>
           </Typography>
-          
         </>
       ) : (
         ""
@@ -104,8 +126,8 @@ export function StickyNavbar() {
   );
 
   return (
-    <div className="w-[1320px] mx-auto">
-      <Navbar className="sticky top-0 z-50 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+    <div className="">
+      <Navbar className="sticky bg-red-100 w-full lg:w-[1320px] mx-auto top-0 z-50 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
@@ -119,7 +141,6 @@ export function StickyNavbar() {
             <div className="flex items-center gap-x-1">
               {user ? (
                 <div className="relative inline-block">
-                  {/* User Profile Image */}
                   <div className="border-red-300 border-2 hover:opacity-50 rounded-full">
                     <img
                       ref={profileImageRef}
@@ -129,8 +150,6 @@ export function StickyNavbar() {
                       onClick={handleProfileClick}
                     />
                   </div>
-
-                  {/* Dropdown Menu */}
                   {isDropdownVisible && (
                     <div
                       ref={dropdownRef}

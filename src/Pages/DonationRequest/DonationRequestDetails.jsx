@@ -18,7 +18,7 @@ const DonationRequestDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/donation-requests-pending/${id}`)
+      .get(`https://assignment-12-server-azure.vercel.app/donation-requests-pending/${id}`)
       .then((response) => {
         const data = response.data;
         if (data && data.donationStatus === "pending") {
@@ -30,7 +30,7 @@ const DonationRequestDetails = () => {
 
   const handleDonate = () => {
     axios
-      .put(`http://localhost:5000/donation-requests/${id}`, {
+      .put(`https://assignment-12-server-azure.vercel.app/donation-requests/${id}`, {
         donationStatus: "inprogress",
         donorName: donorInfo.name,
         donorEmail: donorInfo.email,

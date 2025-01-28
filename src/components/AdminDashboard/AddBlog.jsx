@@ -51,7 +51,7 @@ const plainTextContent = htmlToText(content, {
       status: "draft",
   };
   try {
-      await axios.post("http://localhost:5000/blogs", blogData);
+      await axios.post("https://assignment-12-server-azure.vercel.app/blogs", blogData);
       Swal.fire({
           position: "top-end",
           icon: "success",

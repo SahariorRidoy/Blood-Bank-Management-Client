@@ -21,7 +21,7 @@ const MyDonationRequest = () => {
       try {
         if (user?.email) {
           const response = await axios.get(
-            `http://localhost:5000/donation-requests/${user.email}`
+            `https://assignment-12-server-azure.vercel.app/donation-requests/${user.email}`
           );
           
           const donorDonations = response.data;
@@ -65,7 +65,7 @@ const MyDonationRequest = () => {
   const handleStatusChange = async (donationId, newStatus) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/donation-requests/${donationId}`,
+        `https://assignment-12-server-azure.vercel.app/donation-requests/${donationId}`,
         { donationStatus: newStatus }
       );
       if (response.status === 200) {
@@ -112,7 +112,7 @@ const MyDonationRequest = () => {
     if (result.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:5000/donation-requests/${donationId}`
+          `https://assignment-12-server-azure.vercel.app/donation-requests/${donationId}`
         );
         setRecentDonations((prevDonations) =>
           prevDonations.filter((donation) => donation._id !== donationId)

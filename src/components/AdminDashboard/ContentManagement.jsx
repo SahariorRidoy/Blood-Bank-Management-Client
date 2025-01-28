@@ -18,7 +18,7 @@ const ContentManagement = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/users/${user.email}`) 
+        .get(`https://assignment-12-server-azure.vercel.app/users/${user.email}`) 
         .then((response) => {
           setUserRole(response.data.role);
           setLoading(false);
@@ -33,7 +33,7 @@ const ContentManagement = () => {
   const { data: blogs, refetch } = useQuery({
     queryKey: ['blogs'],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:5000/blogs");
+      const response = await axios.get("https://assignment-12-server-azure.vercel.app/blogs");
       return response.data;
     },
     onError: (error) => {
@@ -49,7 +49,7 @@ const ContentManagement = () => {
   const handlePublishToggle = async (blog) => {
     const updatedStatus = blog.status === "draft" ? "published" : "draft";
     try {
-      await axios.put(`http://localhost:5000/blogs/${blog._id}`, {
+      await axios.put(`https://assignment-12-server-azure.vercel.app/blogs/${blog._id}`, {
         ...blog,
         status: updatedStatus,
       });
@@ -68,7 +68,7 @@ const ContentManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/blogs/${id}`);
+      const response = await axios.delete(`https://assignment-12-server-azure.vercel.app/blogs/${id}`);
       if (response.status === 200) {
         Swal.fire({
           position: "top-end",

@@ -15,7 +15,7 @@ const BlogPage = () => {
   // Fetch published blogs
   useEffect(() => {
     axios
-      .get("http://localhost:5000/blogs")
+      .get("https://assignment-12-server-azure.vercel.app/blogs")
       .then((response) => {
         // Filter published blogs
         setBlogs(response.data.filter(blog => blog.status === "published"));
