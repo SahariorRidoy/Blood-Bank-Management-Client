@@ -24,7 +24,7 @@ const DonorDashbordHome = () => {
           const donorDonations = response.data;
           const sortedDonations = donorDonations
             .sort((a, b) => new Date(b.requestedAt) - new Date(a.requestedAt))
-            .slice(0, 15);
+            .slice(0, 3);
 
           setRecentDonations(sortedDonations);
         }
@@ -45,21 +45,19 @@ const DonorDashbordHome = () => {
   // Handle changing the status of the donation
   const handleStatusChange = async (donationId, newStatus) => {
     try {
-      // Sending the PUT request to update the status of the donation
       const response = await axios.put(
         `http://localhost:5000/donation-requests/${donationId}`,
-        { donationStatus: newStatus } // Correct field name: donationStatus
+        { donationStatus: newStatus } 
       );
-
-      // If the response is successful, update the local state
       if (response.status === 200) {
         setRecentDonations((prevDonations) =>
           prevDonations.map((donation) =>
             donation._id === donationId
-              ? { ...donation, donationStatus: newStatus } // Update status correctly
+              ? { ...donation, donationStatus: newStatus } 
               : donation
           )
         );
+        setDropdown(false)
         Swal.fire(
           "Success",
           `Donation status changed to ${newStatus}.`,
@@ -115,7 +113,7 @@ const DonorDashbordHome = () => {
       <h2 className="text-xl font-bold text-red-600 mb-4">
         Recent Donation Requests
       </h2>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-white uppercase bg-red-600">
             <tr>

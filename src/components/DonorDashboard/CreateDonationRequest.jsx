@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import districts from '../../Data/Districts.json';
 import upazilas from '../../Data/Upazilas.json';
@@ -8,11 +8,23 @@ import Swal from "sweetalert2";
 
 const CreateDonationRequest = () => {
   const { user } = useContext(AuthContext);
+  const [userStatus, setUserStatus] = useState(null);
   const [district, setDistrict] = useState("");
   const [upazila, setUpazila] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   
   const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`http://localhost:5000/users/${user.email}`) 
+        .then((response) => {
+          setUserStatus(response.data.status);
+        })
+    }
+  }, [user]);
+  console.log(userStatus);
+  
 
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
@@ -51,7 +63,7 @@ const CreateDonationRequest = () => {
       ...formData,
       requesterName: user?.displayName || "Unknown User",
       requesterEmail: user?.email || "No Email",
-      donationStatus: "pending", // Default status
+      donationStatus: "pending", 
     };
 
     try {
@@ -76,6 +88,18 @@ const CreateDonationRequest = () => {
       });
     }
   };
+  if (userStatus === "blocked") {
+    return (
+      <div className="max-w-4xl mx-auto p-6 bg-white border border-gray-400 shadow-md rounded-lg">
+        <h2 className="text-2xl font-semibold text-center text-red-700 mb-6">
+          Access Denied
+        </h2>
+        <p className="text-center text-gray-700">
+          Your account is currently blocked. You cannot create a donation request.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white border border-gray-400 shadow-md rounded-lg">
