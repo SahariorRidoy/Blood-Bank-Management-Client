@@ -10,7 +10,7 @@ const DonorDashbordHome = () => {
   const [recentDonations, setRecentDonations] = useState([]);
   const [dropdown, setDropdown] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteDonationId, setDeleteDonationId] = useState(null); 
+  const [deleteDonationId, setDeleteDonationId] = useState(null);
   const navigate = useNavigate();
 
   // Fetch recent donations of the user
@@ -45,48 +45,65 @@ const DonorDashbordHome = () => {
   // Handle changing the status of the donation
   const handleStatusChange = async (donationId, newStatus) => {
     try {
+      // Sending the PUT request to update the status of the donation
       const response = await axios.put(
         `http://localhost:5000/donation-requests/${donationId}`,
-        { status: newStatus }
+        { donationStatus: newStatus } // Correct field name: donationStatus
       );
-      setRecentDonations((prevDonations) =>
-        prevDonations.map((donation) =>
-          donation._id === donationId
-            ? { ...donation, status: newStatus }
-            : donation
-        )
-      );
+
+      // If the response is successful, update the local state
+      if (response.status === 200) {
+        setRecentDonations((prevDonations) =>
+          prevDonations.map((donation) =>
+            donation._id === donationId
+              ? { ...donation, donationStatus: newStatus } // Update status correctly
+              : donation
+          )
+        );
+        Swal.fire(
+          "Success",
+          `Donation status changed to ${newStatus}.`,
+          "success"
+        );
+      } else {
+        Swal.fire("Error", "Failed to update donation status.", "error");
+      }
     } catch (error) {
       console.error("Error updating donation status:", error);
+      Swal.fire("Error", "There was an error updating the status.", "error");
     }
   };
 
   // Handle deleting a donation request
-
   const handleDeleteRequest = async (donationId) => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
     });
-  
+
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/donation-requests/${donationId}`);
+        await axios.delete(
+          `http://localhost:5000/donation-requests/${donationId}`
+        );
         setRecentDonations((prevDonations) =>
           prevDonations.filter((donation) => donation._id !== donationId)
         );
-        Swal.fire('Deleted!', 'Your donation request has been deleted.', 'success');
+        Swal.fire(
+          "Deleted!",
+          "Your donation request has been deleted.",
+          "success"
+        );
       } catch (error) {
-        console.error('Error deleting donation request:', error);
-        Swal.fire('Error', 'There was an error deleting the request.', 'error');
+        console.error("Error deleting donation request:", error);
+        Swal.fire("Error", "There was an error deleting the request.", "error");
       }
     }
   };
-  
 
   // Toggle dropdown visibility
   const toggleDropdown = (id) => {
@@ -170,87 +187,88 @@ const DonorDashbordHome = () => {
                   {donation.donationStatus}
                 </td>
                 <td className="px-6 py-4 space-x-2 relative z-10">
-  <button
-    onClick={() => toggleDropdown(donation._id)}
-    className="text-gray-500 hover:text-gray-700"
-  >
-    <FaEllipsisH size={18} />
-  </button>
-  {dropdown === donation._id && (
-    <div className="absolute z-40 right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg">
-      <ul className="py-2">
-        <li>
-          <button
-            onClick={() =>
-              navigate(
-                `/dashboard-donation-request/${donation._id}`
-              )
-            }
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-          >
-            View
-          </button>
-        </li>
-        {/* Show these actions for both "pending" and "inprogress" statuses */}
-        {(donation.donationStatus === "pending" || donation.donationStatus === "inprogress") && (
-          <>
-            <li>
-              <button
-                onClick={() =>
-                  navigate(
-                    `/edit-donation-request/${donation._id}`
-                  )
-                }
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-              >
-                Edit
-              </button>
-            </li>
-          </>
-        )}
-        {/* Show "Delete" for "pending", "inprogress", "done" and "canceled" statuses */}
-        {(donation.donationStatus === "pending" || donation.donationStatus === "inprogress" || donation.donationStatus === "done" || donation.donationStatus === "canceled") && (
-          <li>
-            <button
-              onClick={() =>
-                handleDeleteRequest(donation._id)
-              }
-              className="block px-4 py-2 text-red-600 hover:bg-red-100"
-            >
-              Delete
-            </button>
-          </li>
-        )}
-        {/* Show status change actions only when donation is "inprogress" */}
-        {donation.donationStatus === "inprogress" && (
-          <>
-            <li>
-              <button
-                onClick={() =>
-                  handleStatusChange(donation._id, "done")
-                }
-                className="block px-4 py-2 text-green-600 hover:bg-green-100"
-              >
-                Done
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() =>
-                  handleStatusChange(donation._id, "canceled")
-                }
-                className="block px-4 py-2 text-red-600 hover:bg-red-100"
-              >
-                Canceled
-              </button>
-            </li>
-          </>
-        )}
-      </ul>
-    </div>
-  )}
-</td>
-
+                  <button
+                    onClick={() => toggleDropdown(donation._id)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <FaEllipsisH size={18} />
+                  </button>
+                  {dropdown === donation._id && (
+                    <div className="absolute z-40 right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg">
+                      <ul className="py-2">
+                        <li>
+                          <button
+                            onClick={() =>
+                              navigate(
+                                `/dashboard-donation-request/${donation._id}`
+                              )
+                            }
+                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          >
+                            View
+                          </button>
+                        </li>
+                        {/* Show these actions for both "pending" and "inprogress" statuses */}
+                        {(donation.donationStatus === "pending" ||
+                          donation.donationStatus === "inprogress") && (
+                          <>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  navigate(
+                                    `/edit-donation-request/${donation._id}`
+                                  )
+                                }
+                                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                              >
+                                Edit
+                              </button>
+                            </li>
+                          </>
+                        )}
+                        {/* Show "Delete" for "pending", "inprogress", "done" and "canceled" statuses */}
+                        {(donation.donationStatus === "pending" ||
+                          donation.donationStatus === "inprogress" ||
+                          donation.donationStatus === "done" ||
+                          donation.donationStatus === "canceled") && (
+                          <li>
+                            <button
+                              onClick={() => handleDeleteRequest(donation._id)}
+                              className="block px-4 py-2 text-red-600 hover:bg-red-100"
+                            >
+                              Delete
+                            </button>
+                          </li>
+                        )}
+                        {/* Show status change actions only when donation is "inprogress" */}
+                        {donation.donationStatus === "inprogress" && (
+                          <>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleStatusChange(donation._id, "done")
+                                }
+                                className="block px-4 py-2 text-green-600 hover:bg-green-100"
+                              >
+                                Done
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() =>
+                                  handleStatusChange(donation._id, "canceled")
+                                }
+                                className="block px-4 py-2 text-red-600 hover:bg-red-100"
+                              >
+                                Canceled
+                              </button>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
