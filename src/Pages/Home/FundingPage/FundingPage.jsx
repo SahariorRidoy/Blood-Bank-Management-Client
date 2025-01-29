@@ -20,7 +20,7 @@ const FundingPage = () => {
   };
 
   return (
-    <div className="funding-page max-w-5xl mx-auto p-6">
+    <div className="funding-page max-w-5xl mx-auto mt-16 p-6">
       <h1 className="text-3xl font-bold text-center mb-4">Support Our Cause</h1>
       <p className="text-center text-gray-600 mb-6">Your contribution can make a real difference. Please enter your payment details below.</p>
 

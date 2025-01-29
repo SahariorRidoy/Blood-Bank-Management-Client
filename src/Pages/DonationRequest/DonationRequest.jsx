@@ -22,7 +22,7 @@ const DonationRequests = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 bg-red-50">
+    <div className="container mx-auto p-4 mt-14 bg-red-50">
       <h2 className="text-3xl font-bold text-center mb-6 text-red-700">
         Pending Blood Donation Requests
       </h2>

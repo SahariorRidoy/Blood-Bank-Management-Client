@@ -26,7 +26,7 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 mt-14">
       <h2 className="text-2xl font-bold text-center mb-6">Published Blogs</h2>
 
       {/* Search bar (centered) */}

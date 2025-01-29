@@ -1,18 +1,24 @@
 import { Typography } from "@material-tailwind/react";
+import { FaTint } from 'react-icons/fa';  // Blood drop icon
 
 export function FooterWithLogo() {
   return (
-    <footer className="w-[1320px] mx-auto bg-white p-8">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
-        {/* <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="logo-ct" className="w-10" /> */}
-        <h2>Blood Bank</h2>
-        <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
+    <footer className="w-full bg-gradient-to-r from-red-400 via-red-500 to-red-600 p-10">
+      {/* Outer div takes full width, inner div is constrained */}
+      <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row items-center justify-between text-center text-white">
+        {/* Logo with Icon */}
+        <div className="flex items-center gap-4 mb-6 sm:mb-0">
+          <FaTint className="text-white text-5xl transform hover:scale-110 transition-all duration-300" />
+          <h2 className="text-4xl font-semibold tracking-tight">Blood Bank</h2>
+        </div>
+
+        {/* Links */}
+        <ul className="flex flex-col sm:flex-row items-center gap-6 text-lg font-medium">
           <li>
             <Typography
               as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+              color="white"
+              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
               About Us
             </Typography>
@@ -20,9 +26,8 @@ export function FooterWithLogo() {
           <li>
             <Typography
               as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+              color="white"
+              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
               License
             </Typography>
@@ -30,9 +35,8 @@ export function FooterWithLogo() {
           <li>
             <Typography
               as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+              color="white"
+              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
               Contribute
             </Typography>
@@ -40,18 +44,19 @@ export function FooterWithLogo() {
           <li>
             <Typography
               as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
+              color="white"
+              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
               Contact Us
             </Typography>
           </li>
         </ul>
       </div>
-      <hr className="my-8 border-blue-gray-50" />
-      <Typography color="blue-gray" className="text-center font-normal">
-        &copy; 2023 Material Tailwind
+
+      {/* Footer Divider and Copyright */}
+      <hr className="max-w-[1320px] mx-auto my-8 border-t-2 border-white opacity-40" />
+      <Typography color="white" className="text-center font-normal text-lg">
+        &copy; 2025 Blood Bank | All rights reserved
       </Typography>
     </footer>
   );

@@ -10,14 +10,14 @@ const Home = () => {
         return <Loading />
       }
     return (
-        <div className='max-w-[1320px] mx-auto'>
+        <div  className='max-w-[1320px] mx-auto'>
             <div>
             <Banner></Banner>
             </div>
             <div className='pt-12'>
                 <FeaturedBloodTypes></FeaturedBloodTypes>
             </div>
-            <div className='py-12'>
+            <div  className='py-12'>
             <ContactUs></ContactUs>
             </div>
         </div>
