@@ -4,25 +4,27 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEllipsisH } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
 
 const AllDonationRequest = () => {
-  const { user, loading, setLoading } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   const [recentDonations, setRecentDonations] = useState([]);
   const [filteredDonations, setFilteredDonations] = useState([]);
   const [dropdown, setDropdown] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteDonationId, setDeleteDonationId] = useState(null);
   const [statusFilter, setStatusFilter] = useState(""); 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); 
 
   // Fetch recent donations of the user
   useEffect(() => {
     const fetchRecentDonations = async () => {
+      setLoading(true)
       try {
         if (user?.email) {
           const response = await axios.get(
             `https://assignment-12-server-azure.vercel.app/donation-requests`
           );
+          
           
           const donorDonations = response.data;
           const sortedDonations = donorDonations.sort(
@@ -31,6 +33,7 @@ const AllDonationRequest = () => {
 
           setRecentDonations(sortedDonations);
           setFilteredDonations(sortedDonations); 
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching donation requests:", error);
@@ -136,6 +139,9 @@ const AllDonationRequest = () => {
   const toggleDropdown = (id) => {
     setDropdown(dropdown === id ? null : id);
   };
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="">
@@ -144,7 +150,7 @@ const AllDonationRequest = () => {
       </h2>
 
       {/* Filter Section */}
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label htmlFor="statusFilter" className="font-medium text-gray-700">
           Filter by Status:
         </label>
@@ -162,7 +168,7 @@ const AllDonationRequest = () => {
         </select>
       </div>
 
-      <div className="relative min-h-svh overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
+      <div className="relative p-2 min-h-[700px] overflow-x-auto lg:overflow-x-hidden border border-gray-400 shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-white uppercase bg-red-600">
             <tr>

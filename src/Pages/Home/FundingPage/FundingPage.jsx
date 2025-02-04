@@ -21,7 +21,7 @@ const FundingPage = () => {
 
   return (
     <div className="funding-page max-w-5xl mx-auto mt-16 p-6">
-      <h1 className="text-3xl font-bold text-center mb-4">Support Our Cause</h1>
+      <h1 className="text-3xl text-red-600 font-bold text-center mb-4">Support With Card Payment </h1>
       <p className="text-center text-gray-600 mb-6">Your contribution can make a real difference. Please enter your payment details below.</p>
 
       <form className="bg-white shadow-md rounded-lg p-6" onSubmit={handleSubmit}>
@@ -35,7 +35,7 @@ const FundingPage = () => {
             value={paymentDetails.cardNumber}
             onChange={handleInputChange}
             required
-            className="w-full border-gray-300 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -50,7 +50,7 @@ const FundingPage = () => {
               value={paymentDetails.expiryDate}
               onChange={handleInputChange}
               required
-              className="w-full border-gray-300 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
@@ -64,7 +64,7 @@ const FundingPage = () => {
               value={paymentDetails.cvv}
               onChange={handleInputChange}
               required
-              className="w-full border-gray-300 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
         </div>
@@ -79,7 +79,7 @@ const FundingPage = () => {
             value={paymentDetails.amount}
             onChange={handleInputChange}
             required
-            className="w-full border-gray-300 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 

@@ -10,7 +10,9 @@ const Dashboard = () => {
 
 
   useEffect(() => {
+    
     if (user?.email) {
+      
       axios
         .get(`https://assignment-12-server-azure.vercel.app/users/${user?.email}`) 
         .then((response) => {
@@ -26,7 +28,6 @@ const Dashboard = () => {
   if (loading) {
     return <Loading />;
   }
-console.log(userRole)
   
   const renderNavLinks = () => {
     if (userRole === 'donor') {

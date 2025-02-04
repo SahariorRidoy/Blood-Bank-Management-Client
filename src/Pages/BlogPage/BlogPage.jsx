@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loading from "../../components/Loading/Loading";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  
+  const [loading,setLoading]=useState(true)
   
   const filteredBlogs = blogs.filter((blog) =>
     blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -14,20 +17,26 @@ const BlogPage = () => {
 
   // Fetch published blogs
   useEffect(() => {
+    setLoading(true)
     axios
       .get("https://assignment-12-server-azure.vercel.app/blogs")
       .then((response) => {
         // Filter published blogs
+
+        setLoading(false)
         setBlogs(response.data.filter(blog => blog.status === "published"));
       })
       .catch((error) => {
         console.error("Error fetching blogs", error);
       });
   }, []);
+  if (loading) {
+    return <div><Loading/></div>;
+  }
 
   return (
     <div className="container mx-auto p-4 mt-14">
-      <h2 className="text-2xl font-bold text-center mb-6">Published Blogs</h2>
+      <h2 className="text-4xl font-bold text-red-800 text-center mb-6"> All Published Blogs</h2>
 
       {/* Search bar (centered) */}
       <div className="flex justify-center mb-6">

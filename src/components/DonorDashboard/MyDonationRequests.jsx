@@ -23,7 +23,7 @@ const MyDonationRequest = () => {
           const response = await axios.get(
             `https://assignment-12-server-azure.vercel.app/donation-requests/${user.email}`
           );
-          
+
           const donorDonations = response.data;
           const sortedDonations = donorDonations.sort(
             (a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)
@@ -231,7 +231,9 @@ const MyDonationRequest = () => {
                       ? "text-green-600"
                       : donation.donationStatus === "canceled"
                       ? "text-red-600"
-                      : "text-blue-600"
+                      : donation.donationStatus === "pending"
+                      ? "text-blue-600"
+                      : "text-purple-600"
                   }`}
                 >
                   {donation.donationStatus}

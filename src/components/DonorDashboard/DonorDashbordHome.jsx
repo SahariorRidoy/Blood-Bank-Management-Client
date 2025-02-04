@@ -2,8 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaEllipsisH } from "react-icons/fa";
 import Swal from "sweetalert2";
+import {
+  FaEllipsisH,
+  FaEye,
+  FaEdit,
+  FaCheck,
+  FaTimes,
+  FaTrash,
+} from "react-icons/fa";
 
 const DonorDashbordHome = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
@@ -47,17 +54,17 @@ const DonorDashbordHome = () => {
     try {
       const response = await axios.put(
         `https://assignment-12-server-azure.vercel.app/donation-requests/${donationId}`,
-        { donationStatus: newStatus } 
+        { donationStatus: newStatus }
       );
       if (response.status === 200) {
         setRecentDonations((prevDonations) =>
           prevDonations.map((donation) =>
             donation._id === donationId
-              ? { ...donation, donationStatus: newStatus } 
+              ? { ...donation, donationStatus: newStatus }
               : donation
           )
         );
-        setDropdown(false)
+        setDropdown(false);
         Swal.fire(
           "Success",
           `Donation status changed to ${newStatus}.`,
@@ -113,7 +120,7 @@ const DonorDashbordHome = () => {
       <h2 className="text-xl font-bold text-red-600 mb-4">
         Recent Donation Requests
       </h2>
-      <div className="relative overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
+      <div className="relative min-h-96 overflow-y-hidden  overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-white uppercase bg-red-600">
             <tr>
@@ -146,7 +153,7 @@ const DonorDashbordHome = () => {
             {recentDonations.map((donation) => (
               <tr
                 key={donation._id}
-                className="bg-white border-b hover:bg-red-50"
+                className="bg-white border-b  hover:bg-red-50"
               >
                 <td className="px-6 py-4">{donation.recipientName}</td>
                 <td className="px-6 py-4">
@@ -179,7 +186,9 @@ const DonorDashbordHome = () => {
                       ? "text-green-600"
                       : donation.donationStatus === "canceled"
                       ? "text-red-600"
-                      : "text-yellow-600"
+                      : donation.donationStatus === "pending"
+                      ? "text-blue-600"
+                      : "text-purple-600"
                   }`}
                 >
                   {donation.donationStatus}
@@ -187,12 +196,18 @@ const DonorDashbordHome = () => {
                 <td className="px-6 py-4 space-x-2 relative z-10">
                   <button
                     onClick={() => toggleDropdown(donation._id)}
-                    className="text-gray-500 hover:text-gray-700"
+                    className={`p-2 rounded-full hover:bg-red-50 transition-colors ${
+                      dropdown === donation._id
+                        ? "bg-red-50 text-red-600"
+                        : "text-gray-500"
+                    }`}
                   >
                     <FaEllipsisH size={18} />
                   </button>
                   {dropdown === donation._id && (
-                    <div className="absolute z-40 right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg">
+                    <div className="absolute z-40 right-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-xl">
+                      {/* Dropdown arrow */}
+                      <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
                       <ul className="py-2">
                         <li>
                           <button
@@ -201,44 +216,28 @@ const DonorDashbordHome = () => {
                                 `/dashboard-donation-request/${donation._id}`
                               )
                             }
-                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            className="w-full px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gray-400"
                           >
-                            View
+                            <FaEye className="text-blue-500" />
+                            <span>View Details</span>
                           </button>
                         </li>
-                        {/* Show these actions for both "pending" and "inprogress" statuses */}
                         {(donation.donationStatus === "pending" ||
                           donation.donationStatus === "inprogress") && (
-                          <>
-                            <li>
-                              <button
-                                onClick={() =>
-                                  navigate(
-                                    `/edit-donation-request/${donation._id}`
-                                  )
-                                }
-                                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                              >
-                                Edit
-                              </button>
-                            </li>
-                          </>
-                        )}
-                        {/* Show "Delete" for "pending", "inprogress", "done" and "canceled" statuses */}
-                        {(donation.donationStatus === "pending" ||
-                          donation.donationStatus === "inprogress" ||
-                          donation.donationStatus === "done" ||
-                          donation.donationStatus === "canceled") && (
                           <li>
                             <button
-                              onClick={() => handleDeleteRequest(donation._id)}
-                              className="block px-4 py-2 text-red-600 hover:bg-red-100"
+                              onClick={() =>
+                                navigate(
+                                  `/edit-donation-request/${donation._id}`
+                                )
+                              }
+                              className="w-full px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gray-400"
                             >
-                              Delete
+                              <FaEdit className="text-purple-500" />
+                              <span>Edit Request</span>
                             </button>
                           </li>
                         )}
-                        {/* Show status change actions only when donation is "inprogress" */}
                         {donation.donationStatus === "inprogress" && (
                           <>
                             <li>
@@ -246,9 +245,10 @@ const DonorDashbordHome = () => {
                                 onClick={() =>
                                   handleStatusChange(donation._id, "done")
                                 }
-                                className="block px-4 py-2 text-green-600 hover:bg-green-100"
+                                className="w-full px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gray-400"
                               >
-                                Done
+                                <FaCheck className="text-green-500" />
+                                <span>Mark as Done</span>
                               </button>
                             </li>
                             <li>
@@ -256,12 +256,27 @@ const DonorDashbordHome = () => {
                                 onClick={() =>
                                   handleStatusChange(donation._id, "canceled")
                                 }
-                                className="block px-4 py-2 text-red-600 hover:bg-red-100"
+                                className="w-full px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gray-400"
                               >
-                                Canceled
+                                <FaTimes className="text-red-500" />
+                                <span>Cancel Request</span>
                               </button>
                             </li>
                           </>
+                        )}
+                        {(donation.donationStatus === "pending" ||
+                          donation.donationStatus === "inprogress" ||
+                          donation.donationStatus === "done" ||
+                          donation.donationStatus === "canceled") && (
+                          <li>
+                            <button
+                              onClick={() => handleDeleteRequest(donation._id)}
+                              className="w-full px-4 py-3 flex items-center space-x-3 text-gray-700 hover:bg-gray-400"
+                            >
+                              <FaTrash className="text-red-500" />
+                              <span>Delete Request</span>
+                            </button>
+                          </li>
                         )}
                       </ul>
                     </div>

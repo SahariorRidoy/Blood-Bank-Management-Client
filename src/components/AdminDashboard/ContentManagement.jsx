@@ -4,6 +4,7 @@ import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
 
 const ContentManagement = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const ContentManagement = () => {
           setLoading(false);
         })
         .catch((error) => {
-          setLoading(false);
+          setLoading(true);
         });
     }
   }, [user]);
@@ -92,9 +93,11 @@ const ContentManagement = () => {
   }).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
-    <div className="p-4 md:p-8 lg:p-12 bg-gray-100">
+    <div className="p-4 md:p-8 lg:px-12 bg-gray-100">
       <div className="flex justify-between items-center bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg">
         <h2 className="text-lg md:text-2xl font-bold">Blood Bank Content Management</h2>
         <button
@@ -135,14 +138,7 @@ const ContentManagement = () => {
       <h3 className="text-lg font-bold text-red-600">{blog?.title}</h3>
       <p className="text-gray-600 mt-2 flex-grow">{blog?.content.slice(0, 100)}...</p>
       <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-300 w-full">
-        <button
-          onClick={() =>
-            navigate(`/dashboard/content-management/edit-blog/${blog?._id}`)
-          }
-          className="bg-blue-500 text-white px-3 py-1 rounded-md shadow hover:bg-blue-600 transition"
-        >
-          Edit
-        </button>
+        
         {userRole === "admin" ? (
           <>
             <button

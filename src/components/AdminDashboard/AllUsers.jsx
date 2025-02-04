@@ -6,8 +6,10 @@ import { FaEllipsisV } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllUsers = () => {
-  const { loading, setLoading } = useContext(AuthContext);
+  // const { loading, setLoading } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
+  
+    const [loading, setLoading] = useState(true);  
   const [isMenuOpen, setIsMenuOpen] = useState(null); // To manage which user's menu is open
 
   // Pagination state
@@ -16,12 +18,22 @@ const AllUsers = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get("https://assignment-12-server-azure.vercel.app/users");
-      setUsers(response.data);
-      setLoading(false);
+      // setLoading(true);
+      try {
+        const response = await axios.get("https://assignment-12-server-azure.vercel.app/users");
+        setUsers(response.data);
+        console.log(response.data);
+        
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false); // This should always run
+      }
     };
+  
     fetchUsers();
-  }, []);
+  }, [setLoading]);
+
 
   const toggleMenu = (userId) => {
     setIsMenuOpen(isMenuOpen === userId ? null : userId); // Toggle the menu visibility
@@ -252,7 +264,11 @@ const AllUsers = () => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table className="w-full text-sm text-left text-gray-700">
+      <h2 className="text-3xl font-bold text-center text-red-600 mb-4">
+        All Users List
+      </h2>
+  <div className=" border min-h-[550px] border-gray-400 p-2">
+  <table className="w-full  text-sm text-left text-gray-700">
     <thead className="text-xs text-white uppercase bg-red-600">
       <tr>
         <th scope="col" className="px-6 py-3">Name</th>
@@ -342,6 +358,7 @@ const AllUsers = () => {
       ))}
     </tbody>
   </table>
+  </div>
 
   {/* Pagination */}
   <div className="flex items-center justify-between p-4 bg-white border-t dark:bg-gray-800 dark:border-gray-700">

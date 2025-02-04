@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loading from "../../components/Loading/Loading";
 
 const BlogDetails = () => {
   const { id } = useParams(); 
   const [blog, setBlog] = useState(null);
-
+const [loading,setLoading]=useState(true)
   useEffect(() => {
     axios
       .get(`https://assignment-12-server-azure.vercel.app/blogs/${id}`)
       .then((response) => {
         setBlog(response.data);
+        setLoading(false)
       })
       
   }, [id]);
 
-  if (!blog) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <div><Loading/></div>;
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mt-10 mx-auto p-4">
       <div className="relative bg-gray-100 rounded-lg shadow-md overflow-hidden">
         <img
           src={blog.thumbnail} 

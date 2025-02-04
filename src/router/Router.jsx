@@ -21,6 +21,7 @@ import AddBlog from "../components/AdminDashboard/AddBlog";
 import BlogDetails from "../Pages/BlogPage/BlogDetails";
 import DonationRequestDetails from "../Pages/DonationRequest/DonationRequestDetails";
 import DashboardDonationRequestDetails from "../components/DonorDashboard/DashbardDonationRequestDetails";
+import EditDonationRequest from "../components/DonorDashboard/EditDonationRequest";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard-donation-request/:id",
         element: <PrivateRoute><DashboardDonationRequestDetails></DashboardDonationRequestDetails></PrivateRoute>,
+      },
+      {
+        path: "/edit-donation-request/:id",
+        element: <PrivateRoute><EditDonationRequest></EditDonationRequest></PrivateRoute>,
       },
       {
         path: "/search",

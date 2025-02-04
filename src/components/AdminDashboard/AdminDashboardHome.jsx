@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FaDollarSign, FaHeartbeat, FaUser } from 'react-icons/fa';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axios from 'axios';
+import Loading from '../Loading/Loading';
 
 const AdminDashboardHome = () => {
     
-      const { user, loading, setLoading } = useContext(AuthContext);
+      // const { user, loading, setLoading } = useContext(AuthContext);
+        const [loading, setLoading] = useState(true); 
     const [users, setUsers] = useState([]);
       const [totalDonation,setTotalDonation]=useState([])
       useEffect(() => {
@@ -25,6 +27,9 @@ const AdminDashboardHome = () => {
         fetchUsers();
       }, [setLoading]);
       
+      if(loading){
+        return <Loading></Loading>
+      }
     return (
         <div>
              <p className="text-lg mb-6 text-center">

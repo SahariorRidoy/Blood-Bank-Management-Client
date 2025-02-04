@@ -47,7 +47,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-red-50 py-10 px-5 sm:px-10">
+    <div className=" bg-red-50 py-10 px-5 sm:px-10">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-xl">
         <h1 className="text-3xl font-bold text-center text-red-600 mb-8">
           Search Donors
