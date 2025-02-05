@@ -80,34 +80,38 @@ Follow these steps to run the project locally:
 ```sh
 git clone https://github.com/your-repo/blood-bank.git
 cd blood-bank
+```
 2️⃣ Install Dependencies
-sh
-Copy
-Edit
+```sh
+
 
 npm install
+```
 3️⃣ Setup Environment Variables
 Create a .env file and add the required Firebase and MongoDB credentials:
 
-sh
-Copy
-Edit
+```sh
+
 MONGO_URI=your_mongodb_connection_string
 FIREBASE_API_KEY=your_firebase_api_key
+```
 4️⃣ Start the Backend Server
-sh
+```sh
 Copy
 Edit
+
 npm start
+```
 5️⃣ Run the Frontend
 Navigate to the frontend directory and start the React app:
 
-sh
+```sh
 Copy
 Edit
 cd frontend
 npm install
 npm start
+```
 🌍 Live Project Links
 Live Website: [Blood Bank Management System](https://blood-bank-80559.web.app/) 
 Backend API: assignment-12-server-azure.vercel.app
