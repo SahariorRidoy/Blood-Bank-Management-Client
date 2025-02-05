@@ -25,30 +25,50 @@ A web application that allows users to **request blood donations** or **donate b
 ✅ **User Profile Management**  
 ✅ **Dynamic API Using Express.js**  
 ✅ **MongoDB Server for Data Storage**  
+✅ **Secure Payments Integration (Stripe)**  
 
 ---
 
 ## 🛠 Technologies Used  
 
-- **Frontend:** React.js, Firebase Authentication  
+- **Frontend:** React.js, Vite, Firebase Authentication  
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB  
-- **Hosting:** Clien-Side:Firebase, Backend:Vercel  
-- **UI Components:** Tailwind CSS  
+- **State Management & Queries:** React Query  
+- **Payment Gateway:** Stripe  
+- **UI Components:** Tailwind CSS, Material Tailwind, Heroicons  
+- **Editor:** Jodit  
 
 ---
 
 ## 📦 Dependencies  
 
-Make sure you have **Node.js** and **MongoDB** installed. The project uses:  
+This project relies on the following major dependencies:  
 
-- `express` - Backend framework  
-- `mongoose` - MongoDB object modeling  
+### **Frontend Dependencies:**  
+- `react` - Frontend library  
+- `react-dom` - DOM bindings for React  
+- `react-router-dom` - Routing library  
+- `react-hook-form` - Form handling  
+- `axios` - HTTP client for API requests  
 - `firebase` - User authentication  
-- `cors` - Cross-Origin Resource Sharing  
-- `dotenv` - Manage environment variables  
-- `jsonwebtoken` - Authentication tokens  
-- `bcryptjs` - Password hashing  
+- `sweetalert2` - Popup alerts  
+- `react-hot-toast` - Toast notifications  
+- `react-icons` - Icon library  
+- `react-spinners` - Loading spinners  
+- `@heroicons/react` - Heroicons for UI  
+- `@material-tailwind/react` - UI components  
+- `@tanstack/react-query` - Data fetching and caching  
+- `@stripe/react-stripe-js` - Stripe payments integration  
+- `@stripe/stripe-js` - Stripe JavaScript SDK  
+- `html-to-text` - Convert HTML to plain text  
+- `jodit & jodit-react` - Rich text editor  
+
+### **Development Dependencies:**  
+- `vite` - Fast build tool  
+- `eslint & eslint plugins` - Code linting  
+- `tailwindcss` - CSS framework  
+- `postcss & autoprefixer` - CSS processing  
 
 ---
 
@@ -64,6 +84,7 @@ cd blood-bank
 sh
 Copy
 Edit
+
 npm install
 3️⃣ Setup Environment Variables
 Create a .env file and add the required Firebase and MongoDB credentials:
