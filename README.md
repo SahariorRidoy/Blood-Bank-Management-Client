@@ -11,7 +11,9 @@ A web application that allows users to **request blood donations** or **donate b
 ---
 
 ## 📸 Screenshot  
-*(Add a clean screenshot of your application here.)*  
+<div align="center">
+  <img height="400" src="https://github.com/SahariorRidoy/SahariorRidoy/blob/main/Github%20Readme%20Banner2.jpg"  />
+</div>
 
 ---
 
@@ -83,22 +85,17 @@ cd blood-bank
 ```
 2️⃣ Install Dependencies
 ```sh
-
-
 npm install
 ```
 3️⃣ Setup Environment Variables
 Create a .env file and add the required Firebase and MongoDB credentials:
 
 ```sh
-
 MONGO_URI=your_mongodb_connection_string
 FIREBASE_API_KEY=your_firebase_api_key
 ```
 4️⃣ Start the Backend Server
 ```sh
-Copy
-Edit
 
 npm start
 ```
@@ -106,8 +103,6 @@ npm start
 Navigate to the frontend directory and start the React app:
 
 ```sh
-Copy
-Edit
 cd frontend
 npm install
 npm start
@@ -115,6 +110,8 @@ npm start
 🌍 Live Project Links
 Live Website: [Blood Bank Management System](https://blood-bank-80559.web.app/) 
 Backend API: assignment-12-server-azure.vercel.app
+
+
 
 
 
