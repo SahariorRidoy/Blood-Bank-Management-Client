@@ -144,8 +144,8 @@ const ContentManagement = () => {
             <button
               onClick={() => handlePublishToggle(blog)}
               className={`${
-                blog.status === "draft" ? "bg-green-500" : "bg-purple-400"
-              } text-white px-3 py-1 rounded-md shadow hover:opacity-90 transition`}
+                blog.status === "draft" ? "bg-green-500" : "bg-gray-700"
+              } text-white px-3 py-1 rounded-md shadow hover:bg-gray-800 transition`}
             >
               {blog.status === "draft" ? "Publish" : "Unpublish"}
             </button>

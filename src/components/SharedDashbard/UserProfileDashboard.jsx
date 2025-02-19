@@ -58,7 +58,7 @@ const UserProfileDashboard = () => {
   }
 
   return (
-    <div className=" h-[700px] p-6 bg-white  rounded-lg border border-gray-400 ">
+    <div className=" h-[800px] p-6 bg-white  rounded-lg border border-gray-400 ">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-red-600">User Profile</h2>
         {!isEditable ? (
@@ -84,7 +84,7 @@ const UserProfileDashboard = () => {
           <img
             src={userData?.image || "/placeholder-avatar.png"}
             alt="User Avatar"
-            className="w-24 h-24 rounded-full border-4 border-red-500"
+            className="w-56  rounded-lg border-2 border-red-200"
           />
         </div>
 

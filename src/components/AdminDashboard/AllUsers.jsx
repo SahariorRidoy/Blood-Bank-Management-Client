@@ -237,15 +237,15 @@ const AllUsers = () => {
   };
   
 
-  // Get current users for the current page
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
-  // Change page
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle Previous and Next buttons
+ 
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -263,7 +263,7 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto sm:rounded-lg">
       <h2 className="text-3xl font-bold text-center text-red-600 mb-4">
         All Users List
       </h2>

@@ -138,14 +138,14 @@ const MyDonationRequest = () => {
   };
 
   return (
-    <div className="">
-      <h2 className="text-xl font-bold text-red-600 mb-4">
+    <div className="p-4">
+      <h2 className="text-3xl font-bold text-red-600 mb-4">
         My Donation Requests
       </h2>
 
       {/* Filter Section */}
-      <div className="mb-4">
-        <label htmlFor="statusFilter" className="font-medium text-gray-700">
+      <div className="mb-4 flex items-center justify-center">
+        <label htmlFor="statusFilter" className=" text-lg font-medium text-gray-800">
           Filter by Status:
         </label>
         <select

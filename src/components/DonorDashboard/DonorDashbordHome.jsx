@@ -120,7 +120,7 @@ const DonorDashbordHome = () => {
       <h2 className="text-xl font-bold text-red-600 mb-4">
         Recent Donation Requests
       </h2>
-      <div className="relative min-h-96 overflow-y-hidden  overflow-x-auto lg:overflow-x-hidden shadow-md sm:rounded-lg">
+      <div className="relative min-h-96 overflow-y-hidden  overflow-x-auto lg:overflow-x-hidden sm:rounded-lg">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-white uppercase bg-red-600">
             <tr>
@@ -205,7 +205,7 @@ const DonorDashbordHome = () => {
                     <FaEllipsisH size={18} />
                   </button>
                   {dropdown === donation._id && (
-                    <div className="absolute z-40 right-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-xl">
+                    <div className="absolute z-40 right-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg ">
                       {/* Dropdown arrow */}
                       <div className="absolute -top-2 right-3 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-200" />
                       <ul className="py-2">
@@ -292,7 +292,7 @@ const DonorDashbordHome = () => {
       <div className="mt-4 text-center">
         <button
           onClick={() => navigate("/dashboard/my-donation-request")}
-          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
+          className="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700"
         >
           View My All Requests
         </button>
