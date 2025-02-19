@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const FeaturedBloodTypes = () => {
   return (
-    <div className="max-w-[1320px] mx-auto py-10 px-5 bg-gradient-to-tr from-red-900 via-red-600 to-red-300 text-white rounded-lg shadow-lg text-center">
-      <h2 className="text-2xl md:text-3xl font-semibold mb-4">Featured Blood Types</h2>
+    <div className="max-w-[1320px] mx-auto py-10 px-5 bg-gradient-to-r from-red-300 via-red-200 to-red-200 text-white rounded-lg  text-center">
+      <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-red-700">Featured Blood Types</h2>
       <p className="text-base md:text-lg mb-8">Save a Life Today – Find the Perfect Match</p>
 
       <div className="flex flex-wrap justify-center gap-4 md:gap-6">
@@ -31,7 +31,7 @@ const FeaturedBloodTypes = () => {
 
       <div className="mt-8">
         <Link to="/donation-request">
-          <button className="px-4 py-2 md:px-6 md:py-2.5 bg-red-800 text-white rounded-lg text-sm md:text-lg hover:bg-red-900 transition-colors">
+          <button className="px-4 py-2 md:px-6 md:py-2.5 bg-red-600 text-white rounded-lg text-sm md:text-lg hover:bg-red-900 transition-colors">
             Donate Now
           </button>
         </Link>
