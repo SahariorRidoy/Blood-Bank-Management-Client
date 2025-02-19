@@ -22,6 +22,7 @@ import BlogDetails from "../Pages/BlogPage/BlogDetails";
 import DonationRequestDetails from "../Pages/DonationRequest/DonationRequestDetails";
 import DashboardDonationRequestDetails from "../components/DonorDashboard/DashbardDonationRequestDetails";
 import EditDonationRequest from "../components/DonorDashboard/EditDonationRequest";
+import AboutUsPage from "../Pages/AboutUs/AboutUsPage";
 
 const router = createBrowserRouter([
   {
@@ -35,9 +36,8 @@ const router = createBrowserRouter([
       {
         path: "/funding",
         element: (
-          <PrivateRoute>
             <FundingPage></FundingPage>
-          </PrivateRoute>
+         
         ),
       },
       {
@@ -66,9 +66,22 @@ const router = createBrowserRouter([
         
       },
       {
+        path: "/about",
+        element: <AboutUsPage></AboutUsPage>,
+        
+      },
+      {
         path:"/blog/:id",
          element:<BlogDetails/>
-      }
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
     ],
   },
   {
@@ -113,14 +126,6 @@ const router = createBrowserRouter([
         }
       ]
     
-  },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
-  {
-    path: "/register",
-    element: <Register></Register>,
   },
   {
     path: "*",

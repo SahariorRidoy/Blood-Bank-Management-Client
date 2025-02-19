@@ -29,7 +29,7 @@ const Blog = () => {
   if (loading) return <Loading />;
 
   return (
-    <section className="max-w-[1320px] mx-auto pb-12 px-4">
+    <section className="max-w-[1320px] mx-auto pb-12 ">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6">
         Latest <span className="text-red-600">Blogs</span>
       </h2>

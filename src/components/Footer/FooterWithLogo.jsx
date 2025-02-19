@@ -1,5 +1,6 @@
 import { Typography } from "@material-tailwind/react";
-import { FaTint } from 'react-icons/fa';  // Blood drop icon
+import { FaTint } from "react-icons/fa"; // Blood drop icon
+import { Link } from "react-router-dom";
 
 export function FooterWithLogo() {
   return (
@@ -20,7 +21,7 @@ export function FooterWithLogo() {
               color="white"
               className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
-              About Us
+              <Link to="/blog">Blogs</Link>
             </Typography>
           </li>
           <li>
@@ -29,7 +30,16 @@ export function FooterWithLogo() {
               color="white"
               className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
-              License
+              <Link to="/donation-request">Donation Request</Link>
+            </Typography>
+          </li>
+          <li>
+            <Typography
+              as="a"
+              color="white"
+              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
+            ><Link to="/Search">Search</Link>
+             
             </Typography>
           </li>
           <li>
@@ -38,16 +48,7 @@ export function FooterWithLogo() {
               color="white"
               className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
             >
-              Contribute
-            </Typography>
-          </li>
-          <li>
-            <Typography
-              as="a"
-              color="white"
-              className="transition-colors cursor-pointer hover:text-red-200 focus:text-red-200"
-            >
-              Contact Us
+             <Link to="/about">About Us</Link>
             </Typography>
           </li>
         </ul>

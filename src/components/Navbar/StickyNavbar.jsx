@@ -40,7 +40,7 @@ export function StickyNavbar() {
   };
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mt-2 mb-4 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         variant="medium"
@@ -136,6 +136,25 @@ export function StickyNavbar() {
           Funding
         </NavLink>
       </Typography>
+      <Typography
+        as="li"
+        variant="medium"
+        color="white"
+        className="p-1 font-normal"
+      >
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg ${
+              isActive
+                ? "bg-red-100 text-red-500 font-bold"
+                : "hover:text-red-600"
+            }`
+          }
+        >
+          About Us
+        </NavLink>
+      </Typography>
       {user ? (
         <>
           <Typography
@@ -178,7 +197,7 @@ export function StickyNavbar() {
           </Typography>
 
           <div className="flex items-center gap-4">
-            <div className="mr-4 hidden lg:block">{navList}</div>
+            <div className="hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
               {user ? (
                 <div className="relative inline-block">
