@@ -33,7 +33,7 @@ const DonationRequests = () => {
           {requests.map((request) => (
             <div
               key={request._id}
-              className="flex flex-col p-6 bg-white rounded-lg shadow-xl hover:shadow-2xl border border-red-500 hover:border-red-700 transition-all duration-300 ease-in-out transform hover:scale-105"
+              className="flex flex-col p-6 bg-white rounded-lg shadow-xl hover:shadow-2xl border transition-all duration-300 ease-in-out transform hover:scale-105"
             >
               <h3 className="text-2xl font-semibold mb-3 text-red-600">{request.recipientName}</h3>
               <p className="text-gray-700">

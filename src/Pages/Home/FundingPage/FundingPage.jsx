@@ -20,13 +20,26 @@ const FundingPage = () => {
   };
 
   return (
-    <div className="funding-page max-w-5xl mx-auto mt-16 p-6">
-      <h1 className="text-3xl text-red-600 font-bold text-center mb-4">Support With Card Payment </h1>
-      <p className="text-center text-gray-600 mb-6">Your contribution can make a real difference. Please enter your payment details below.</p>
+    <div className="max-w-[1320px] mx-auto mt-16 px-6 md:px-0">
+      <h1 className="text-3xl text-red-600 font-bold text-center mb-4">
+        Support With Card Payment
+      </h1>
+      <p className="text-center text-gray-600 mb-6">
+        Your contribution can make a real difference. Please enter your payment
+        details below.
+      </p>
 
-      <form className="bg-white shadow-md rounded-lg p-6" onSubmit={handleSubmit}>
-        <div className="form-group mb-4">
-          <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+      <form
+        className="bg-white shadow-md rounded-lg p-8 border border-gray-200"
+        onSubmit={handleSubmit}
+      >
+        <div className="mb-4">
+          <label
+            htmlFor="cardNumber"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Card Number
+          </label>
           <input
             type="text"
             id="cardNumber"
@@ -35,13 +48,19 @@ const FundingPage = () => {
             value={paymentDetails.cardNumber}
             onChange={handleInputChange}
             required
-            className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border border-gray-400 rounded-lg shadow-sm p-3 
+             focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
           />
         </div>
 
-        <div className="form-row flex gap-4 mb-4">
-          <div className="form-group w-1/2">
-            <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+        <div className="flex gap-4 mb-4">
+          <div className="w-1/2">
+            <label
+              htmlFor="expiryDate"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Expiry Date
+            </label>
             <input
               type="text"
               id="expiryDate"
@@ -50,12 +69,18 @@ const FundingPage = () => {
               value={paymentDetails.expiryDate}
               onChange={handleInputChange}
               required
-              className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+               className="w-full border border-gray-400 rounded-lg shadow-sm p-3 
+             focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
             />
           </div>
 
-          <div className="form-group w-1/2">
-            <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+          <div className="w-1/2">
+            <label
+              htmlFor="cvv"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              CVV
+            </label>
             <input
               type="password"
               id="cvv"
@@ -64,13 +89,19 @@ const FundingPage = () => {
               value={paymentDetails.cvv}
               onChange={handleInputChange}
               required
-              className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+               className="w-full border border-gray-400 rounded-lg shadow-sm p-3 
+             focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
 
-        <div className="form-group mb-4">
-          <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+        <div className="mb-4">
+          <label
+            htmlFor="amount"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Amount
+          </label>
           <input
             type="number"
             id="amount"
@@ -79,16 +110,19 @@ const FundingPage = () => {
             value={paymentDetails.amount}
             onChange={handleInputChange}
             required
-            className="w-full border border-gray-400 rounded-lg shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+             className="w-full border border-gray-400 rounded-lg shadow-sm p-3 
+             focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Donate
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-red-600 text-white font-bold py-3 px-12 rounded-lg hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
+            Donate
+          </button>
+        </div>
       </form>
     </div>
   );

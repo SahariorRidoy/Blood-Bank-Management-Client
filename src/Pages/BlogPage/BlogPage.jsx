@@ -50,29 +50,33 @@ const BlogPage = () => {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {filteredBlogs.map((blog) => (
-          <div
-            key={blog._id}
-            className="p-4 bg-white rounded-lg shadow-md border border-gray-400"
-          >
-            <div className="relative">
-              <img
-                src={blog.thumbnail || "/default-thumbnail.jpg"} 
-                alt={blog.title}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-            </div>
-            <h3 className="text-lg font-bold text-red-600">{blog.title}</h3>
-            <p className="text-gray-600 mt-2">{blog.content.slice(0, 150)}...</p>
-            <button
-              onClick={() => navigate(`/blog/${blog._id}`)}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600"
-            >
-              Read More
-            </button>
-          </div>
-        ))}
+  {filteredBlogs.map((blog) => (
+    <div
+      key={blog._id}
+      className="p-4 bg-white rounded-lg shadow-md border border-gray-400 flex flex-col justify-between min-h-[400px]"
+    >
+      <div>
+        <img
+          src={blog.thumbnail || "/default-thumbnail.jpg"} 
+          alt={blog.title}
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 className="text-lg font-bold text-red-600">{blog.title}</h3>
+        <p className="text-gray-600 mt-2">{blog.content.slice(0, 150)}...</p>
       </div>
+      
+      <div className="mt-auto flex justify-center pt-6">
+        <button
+          onClick={() => navigate(`/blog/${blog._id}`)}
+          className="inline-block bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-800"
+        >
+          Read More
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };
