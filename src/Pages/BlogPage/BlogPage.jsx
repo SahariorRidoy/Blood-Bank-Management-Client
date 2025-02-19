@@ -57,7 +57,7 @@ const BlogPage = () => {
           >
             <div className="relative">
               <img
-                src={blog.thumbnail || "/default-thumbnail.jpg"} // Use default image if thumbnail is not available
+                src={blog.thumbnail || "/default-thumbnail.jpg"} 
                 alt={blog.title}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />

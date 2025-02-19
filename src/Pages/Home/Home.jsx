@@ -6,6 +6,7 @@ import ContactUs from './ContactUs/ContactUs.jsx';
 import FeaturedBloodTypes from './FeaturedSection/FeaturedBloodTypes.jsx';
 import Testimonials from './Tesimonials/Tesimonials.jsx';
 import DonationRequests from '../DonationRequest/DonationRequest.jsx';
+import Blog from './Blog/Blog.jsx';
 const Home = () => {
     const { user,loading } = useContext(AuthContext);
     if (loading) {
@@ -24,6 +25,9 @@ const Home = () => {
             </div>
             <div className='py-20'>
             <Testimonials></Testimonials>
+            </div>
+            <div className=''>
+            <Blog></Blog>
             </div>
             <div  className='py-12'>
             <ContactUs></ContactUs>
