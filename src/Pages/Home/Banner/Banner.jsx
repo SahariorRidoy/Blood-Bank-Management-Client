@@ -1,51 +1,45 @@
-import { Link } from 'react-router-dom';
-import bannerImg from "../../../assets/banner-high.jpg"
+import { Link } from "react-router-dom";
+import bannerImg from "../../../assets/Banner-Home.jpg";
+
 const Header = () => {
   return (
-    <header className="bg-red-50 dark:bg-gray-900 md:mt-20">
-    <div className="lg:flex">
-      <div className="flex items-center justify-center w-full px-6 py-8 lg:h-[32rem] lg:w-1/2">
-        <div className="max-w-">
-          <h2 className="text-3xl font-semibold text-red-700 dark:text-red-400 lg:text-4xl">
-            Be a Hero: <span className="text-red-600 dark:text-red-500">Donate Blood, Save Lives</span>
-          </h2>
+    <header
+      className="relative w-full h-[800px] bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${bannerImg})`,
+      }}
+    >
+      {/* Dark Overlay for Better Contrast */}
+      <div className="absolute inset-0 bg-black bg-opacity-5 backdrop-blur-[4px]"></div>
 
-          <p className="mt-4 text-sm text-gray-700 dark:text-gray-300 lg:text-base">
-            Every drop counts. Join our mission to connect life-saving donors with those in need. Together, we can make a lasting impact and save countless lives.
-          </p>
+      {/* Content Container */}
+      <div className="relative z-10 max-w-[1200px] px-6 text-center text-white">
+        <h2 className="text-4xl font-extrabold text-red-600 lg:text-6xl drop-shadow-md">
+          Be a <span >Hero</span>: Donate Blood, Save Lives
+        </h2>
 
-          <div className="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row">
-            <Link
-              to="/register"
-              className="block px-5 py-2 text-sm font-medium text-center text-white transition-colors duration-300 bg-red-600 rounded-md hover:bg-red-900"
-            >
-              Join as a Donor
-            </Link>
-            <Link
-              to="/search"
-              className="block px-5 py-2 text-sm font-medium text-center transition-colors duration-300 text-white  bg-gray-600 rounded-md lg:mx-4 hover:bg-red-900"
-            >
-              Search Donors
-            </Link>
-          </div>
+        <p className="mt-4 text-base text-gray-900 sm:text-lg lg:text-xl font-medium drop-shadow-md">
+          Every drop counts. Join our mission to connect life-saving donors with those in need.
+          Together, we can make a lasting impact and save countless lives.
+        </p>
+
+        {/* Button Section */}
+        <div className="flex flex-col items-center justify-center mt-8 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6">
+          <Link
+            to="/register"
+            className="px-6 py-3 text-lg font-semibold text-white bg-red-600 rounded-lg shadow-lg transition duration-300 hover:bg-red-800"
+          >
+            Join as a Donor
+          </Link>
+          <Link
+            to="/search"
+            className="px-6 py-3 text-lg font-semibold text-white bg-gray-700 rounded-lg shadow-lg transition duration-300 hover:bg-gray-900"
+          >
+            Search Donors
+          </Link>
         </div>
       </div>
-
-      <div className="w-full h-64 lg:w-1/2 lg:h-auto">
-        <div
-          className="w-full h-full bg-cover"
-          style={{
-            backgroundImage:
-              `url(${bannerImg})`,
-          }}
-        >
-          <div className="w-full h-full bg-black bg-opacity-0"></div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
+    </header>
   );
 };
 

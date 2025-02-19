@@ -10,8 +10,8 @@ const Home = () => {
         return <Loading />
       }
     return (
-        <div  className='max-w-[1320px] mx-auto'>
-            <div>
+        <div>
+            <div className='pt-10'>
             <Banner></Banner>
             </div>
             <div className='pt-12'>

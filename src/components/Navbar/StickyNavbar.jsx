@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
-
+import bloodImg from "../../assets/icons8-blood-100.png";
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -43,8 +43,8 @@ export function StickyNavbar() {
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="small"
-        color="blue-gray"
+        variant="medium"
+        color="white"
         className="p-1 font-normal"
       >
         <NavLink
@@ -58,8 +58,8 @@ export function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
-        color="blue-gray"
+        variant="medium"
+        color="white"
         className="p-1 font-normal"
       >
         <NavLink
@@ -73,8 +73,8 @@ export function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
-        color="blue-gray"
+        variant="medium"
+        color="white"
         className="p-1 font-normal"
       >
         <NavLink
@@ -90,8 +90,8 @@ export function StickyNavbar() {
         <>
           <Typography
             as="li"
-            variant="small"
-            color="blue-gray"
+            variant="medium"
+        color="white"
             className="p-1 font-normal"
           >
             <NavLink
@@ -105,8 +105,8 @@ export function StickyNavbar() {
           </Typography>
           <Typography
             as="li"
-            variant="small"
-            color="blue-gray"
+            variant="medium"
+        color="white"
             className="p-1 font-normal"
           >
             <NavLink
@@ -127,13 +127,13 @@ export function StickyNavbar() {
 
   return (
     <div className="w-full">
-      <Navbar className="sticky top-0  z-50 bg-red-100 w-full h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <Navbar className="sticky top-0  z-50 bg-red-400 w-full h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 outline-none border-none">
   <div className="flex items-center justify-between text-blue-gray-900 max-w-[1320px] mx-auto w-full">
     <Typography
       as="a"
       href="#"
-      className="mr-4 cursor-pointer py-1.5 font-extrabold text-red-600 text-xl"
-    >
+      className="flex justify-between items-center gap-2 mr-4 cursor-pointer py-1.5 font-extrabold text-white text-xl"
+    ><img src={bloodImg} className="w-8 rounded-md" alt="Blood Logo" />
       Blood Bank
     </Typography>
     <div className="flex items-center gap-4">

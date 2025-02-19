@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const FeaturedBloodTypes = () => {
   return (
-    <div className="py-10 px-5 bg-gradient-to-tr from-red-900 via-red-600 to-red-300 text-white rounded-lg shadow-lg text-center">
+    <div className="max-w-[1320px] mx-auto py-10 px-5 bg-gradient-to-tr from-red-900 via-red-600 to-red-300 text-white rounded-lg shadow-lg text-center">
       <h2 className="text-2xl md:text-3xl font-semibold mb-4">Featured Blood Types</h2>
       <p className="text-base md:text-lg mb-8">Save a Life Today – Find the Perfect Match</p>
 
