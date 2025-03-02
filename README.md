@@ -12,10 +12,13 @@ A web application that allows users to **request blood donations** or **donate b
 
 ## 📸 Screenshot  
 <div align="center">
-  <img height="500" src="https://github.com/SahariorRidoy/Blood-Bank-Management-Client/blob/main/blood%20bank%201.png"  />
+  <img height="500" src="https://github.com/SahariorRidoy/Blood-Bank-Management-Client/blob/main/src/assets/screenshot1.png"  />
 </div>
 <div align="center">
-  <img height="460" src="https://github.com/SahariorRidoy/Blood-Bank-Management-Client/blob/main/blood%20bank%202.png"  />
+  <img height="500" src="https://github.com/SahariorRidoy/Blood-Bank-Management-Client/blob/main/src/assets/screenshot2.png"  />
+</div>
+<div align="center">
+  <img height="500" src="https://github.com/SahariorRidoy/Blood-Bank-Management-Client/blob/main/src/assets/screenshot3.png"  />
 </div>
 
 ---
