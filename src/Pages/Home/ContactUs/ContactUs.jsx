@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import contactImg from "../../../assets/contact-min.jpg";
+// import contactImg from "../../../assets/contact-min.jpg";
+import contactImg from "../../../assets/Banner-Home.jpg";
 import Swal from "sweetalert2";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 const ContactUs = () => {
@@ -21,7 +22,7 @@ const ContactUs = () => {
             className="bg-cover bg-fixed" 
             style={{ backgroundImage: `url('${contactImg}')` }}
         >
-            <div className="flex flex-col items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="flex flex-col items-center justify-center bg-black/50 ">
                 <div className="container max-w-[1320px] py-12 mx-auto">
                     <div className="flex flex-col lg:flex-row lg:items-center px-6 lg:px-0">
                         {/* Left Side Content */}
